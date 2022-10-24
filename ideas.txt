@@ -1,0 +1,35 @@
+Isolation / Aislamiento
+
+- Singleplayer AI about learning a new language
+- Escritura + Learn about player
+- Complete missions, get badges
+
+
+
+
+
+- AI Cactus found in the Desert
+- Trapped in elevator with robot
+- Blind date with mute person
+- Deactivate bombs with the help of a bot
+- Cook with the help of a bot
+-- The player is the hardware, the bot is the software
+-- They cook alien food
+- The bot makes movie suggestions
+
+- AI + Player working to make NPCs happy
+
+
+- Multiplayer AI about learning to talk to it
+
+- Singleplayer AI about learning a new language
+
+
+Control:
+- Who is the player?
+- Custom Logograms / English
+
+
+Tasks:
+- Learng language
+- Know the character

@@ -1,0 +1,1498 @@
+[gd_scene load_steps=51 format=2]
+
+[ext_resource path="res://fonts/Smooth Circulars.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://MainScene.gd" type="Script" id=2]
+[ext_resource path="res://images/white.png" type="Texture" id=3]
+[ext_resource path="res://images/black.png" type="Texture" id=4]
+[ext_resource path="res://shaders/BoxBlur.gdshader" type="Shader" id=5]
+[ext_resource path="res://images/Compicactus/compi-atlas.png" type="Texture" id=6]
+[ext_resource path="res://images/LogoHoriontal.png" type="Texture" id=7]
+[ext_resource path="res://images/wifi_on.png" type="Texture" id=8]
+[ext_resource path="res://images/Compicactus/mouths.png" type="Texture" id=9]
+
+[sub_resource type="AtlasTexture" id=17]
+flags = 4
+atlas = ExtResource( 6 )
+region = Rect2( 210, 398, 208, 93 )
+
+[sub_resource type="AtlasTexture" id=18]
+flags = 4
+atlas = ExtResource( 6 )
+region = Rect2( 18, 287, 170, 215 )
+
+[sub_resource type="AtlasTexture" id=20]
+flags = 4
+atlas = ExtResource( 6 )
+region = Rect2( 22, -3, 161, 282 )
+
+[sub_resource type="AtlasTexture" id=22]
+flags = 4
+atlas = ExtResource( 6 )
+region = Rect2( 461, 15, 23, 29 )
+
+[sub_resource type="AtlasTexture" id=24]
+flags = 4
+atlas = ExtResource( 6 )
+region = Rect2( 216, 56, 140, 130 )
+
+[sub_resource type="AtlasTexture" id=25]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=26]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=27]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=28]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 192, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=29]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 256, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=30]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 320, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=31]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 384, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=32]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 448, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=33]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 512, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=34]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 576, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=35]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 640, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=36]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 704, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=37]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 768, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=38]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 832, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=39]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 896, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=40]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 960, 0, 64, 64 )
+
+[sub_resource type="SpriteFrames" id=41]
+animations = [ {
+"frames": [ SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="AtlasTexture" id=19]
+flags = 4
+atlas = ExtResource( 6 )
+region = Rect2( 204, 303, 209, 99 )
+
+[sub_resource type="Animation" id=44]
+resource_name = "IdleHappy"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("PotBack/BodyBottom/BodyTop/PupilLeft:position")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.7, 2.5, 2.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 48.3996, -85.7757 ), Vector2( 48.3903, -83.7759 ), Vector2( 40.3903, -83.813 ), Vector2( 48.3903, -83.7759 ), Vector2( 48.3996, -85.7757 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("PotBack/BodyBottom/BodyTop/PupilLeft:rotation_degrees")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 2.66804e-08 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("PotBack/BodyBottom/BodyTop/PupilLeft:scale")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.4, 0.7, 2.5, 2.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 0.374 ), Vector2( 1, 1 ), Vector2( 1, 0.374 ), Vector2( 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("PotBack/PotFront:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 2 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("PotBack/PotFront:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("PotBack/PotFront:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("PotBack:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -17 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("PotBack:rotation_degrees")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("PotBack:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("PotBack/BodyBottom/BodyTop/PupilRight:position")
+tracks/9/interp = 0
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 0.4, 0.7, 2.5, 2.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 10.4, -85.9526 ), Vector2( 12.3964, -83.9282 ), Vector2( 6.39073, -84.0168 ), Vector2( 12.3964, -83.9282 ), Vector2( 10.4, -85.9526 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("PotBack/BodyBottom/BodyTop/PupilRight:rotation_degrees")
+tracks/10/interp = 0
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 5.33608e-08 ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("PotBack/BodyBottom/BodyTop/PupilRight:scale")
+tracks/11/interp = 0
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 0.4, 0.7, 2.5, 2.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 0.38 ), Vector2( 1, 1 ), Vector2( 1, 0.38 ), Vector2( 1, 1 ) ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("PotBack/BodyBottom/BodyTop/Mouth:position")
+tracks/12/interp = 0
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 0.7, 2.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 28.0276, -5.86969 ), Vector2( 25, -6.282 ), Vector2( 28.0276, -5.86969 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("PotBack/BodyBottom/BodyTop/Mouth:rotation_degrees")
+tracks/13/interp = 0
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("PotBack/BodyBottom/BodyTop/Mouth:scale")
+tracks/14/interp = 0
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("PotBack/BodyBottom:position")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -4 ) ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("PotBack/BodyBottom:rotation_degrees")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath("PotBack/BodyBottom:scale")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/18/type = "value"
+tracks/18/path = NodePath("PotBack/BodyBottom/BodyTop:position")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 2.00001, -122 ) ]
+}
+tracks/19/type = "value"
+tracks/19/path = NodePath("PotBack/BodyBottom/BodyTop:rotation_degrees")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -0.266566 ]
+}
+tracks/20/type = "value"
+tracks/20/path = NodePath("PotBack/BodyBottom/BodyTop:scale")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/21/type = "value"
+tracks/21/path = NodePath("PotBack/BodyBottom/BodyTop/Hair:position")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -11.0508, -204.054 ) ]
+}
+tracks/22/type = "value"
+tracks/22/path = NodePath("PotBack/BodyBottom/BodyTop/Hair:rotation_degrees")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 5.32834 ]
+}
+tracks/23/type = "value"
+tracks/23/path = NodePath("PotBack/BodyBottom/BodyTop/Hair:scale")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/24/type = "value"
+tracks/24/path = NodePath("PotBack/BodyBottom/BodyTop/Mouth:frame")
+tracks/24/interp = 0
+tracks/24/loop_wrap = true
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=43]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("PotBack/BodyBottom/BodyTop/PupilLeft:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 48.3996, -85.7757 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("PotBack/BodyBottom/BodyTop/PupilLeft:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 2.66804e-08 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("PotBack/BodyBottom/BodyTop/PupilLeft:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("PotBack/PotFront:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 2 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("PotBack/PotFront:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("PotBack/PotFront:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("PotBack:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -17 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("PotBack:rotation_degrees")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("PotBack:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("PotBack/BodyBottom/BodyTop/PupilRight:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 10.4, -85.9526 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("PotBack/BodyBottom/BodyTop/PupilRight:rotation_degrees")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 5.33608e-08 ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("PotBack/BodyBottom/BodyTop/PupilRight:scale")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("PotBack/BodyBottom/BodyTop/Mouth:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 28.0276, -5.86969 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("PotBack/BodyBottom/BodyTop/Mouth:rotation_degrees")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("PotBack/BodyBottom/BodyTop/Mouth:scale")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("PotBack/BodyBottom:position")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -4 ) ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("PotBack/BodyBottom:rotation_degrees")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath("PotBack/BodyBottom:scale")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/18/type = "value"
+tracks/18/path = NodePath("PotBack/BodyBottom/BodyTop:position")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 2.00001, -122 ) ]
+}
+tracks/19/type = "value"
+tracks/19/path = NodePath("PotBack/BodyBottom/BodyTop:rotation_degrees")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -0.266566 ]
+}
+tracks/20/type = "value"
+tracks/20/path = NodePath("PotBack/BodyBottom/BodyTop:scale")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/21/type = "value"
+tracks/21/path = NodePath("PotBack/BodyBottom/BodyTop/Hair:position")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -11.0508, -204.054 ) ]
+}
+tracks/22/type = "value"
+tracks/22/path = NodePath("PotBack/BodyBottom/BodyTop/Hair:rotation_degrees")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 5.32834 ]
+}
+tracks/23/type = "value"
+tracks/23/path = NodePath("PotBack/BodyBottom/BodyTop/Hair:scale")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/24/type = "value"
+tracks/24/path = NodePath("PotBack/BodyBottom/BodyTop/Mouth:frame")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=42]
+resource_name = "Wakeup"
+tracks/0/type = "value"
+tracks/0/path = NodePath("PotBack/BodyBottom/BodyTop/PupilLeft:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 48.3996, -85.7757 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("PotBack/BodyBottom/BodyTop/PupilLeft:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 2.66804e-08 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("PotBack/BodyBottom/BodyTop/PupilLeft:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("PotBack/PotFront:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 2 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("PotBack/PotFront:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("PotBack/PotFront:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("PotBack:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -17 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("PotBack:rotation_degrees")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("PotBack:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("PotBack/BodyBottom/BodyTop/PupilRight:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 10.4, -85.9526 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("PotBack/BodyBottom/BodyTop/PupilRight:rotation_degrees")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 5.33608e-08 ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("PotBack/BodyBottom/BodyTop/PupilRight:scale")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("PotBack/BodyBottom/BodyTop/Mouth:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 28.0276, -5.86969 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("PotBack/BodyBottom/BodyTop/Mouth:rotation_degrees")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("PotBack/BodyBottom/BodyTop/Mouth:scale")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("PotBack/BodyBottom:position")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -4 ) ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("PotBack/BodyBottom:rotation_degrees")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 4.8, 0.0 ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath("PotBack/BodyBottom:scale")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 0.929 ), Vector2( 1, 1 ) ]
+}
+tracks/18/type = "value"
+tracks/18/path = NodePath("PotBack/BodyBottom/BodyTop:position")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 2.00001, -122 ) ]
+}
+tracks/19/type = "value"
+tracks/19/path = NodePath("PotBack/BodyBottom/BodyTop:rotation_degrees")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 23.9, 0.0 ]
+}
+tracks/20/type = "value"
+tracks/20/path = NodePath("PotBack/BodyBottom/BodyTop:scale")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 0.955 ), Vector2( 1, 1 ) ]
+}
+tracks/21/type = "value"
+tracks/21/path = NodePath("PotBack/BodyBottom/BodyTop/Hair:position")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -11.0508, -204.054 ) ]
+}
+tracks/22/type = "value"
+tracks/22/path = NodePath("PotBack/BodyBottom/BodyTop/Hair:rotation_degrees")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 5.32834 ]
+}
+tracks/23/type = "value"
+tracks/23/path = NodePath("PotBack/BodyBottom/BodyTop/Hair:scale")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/24/type = "value"
+tracks/24/path = NodePath("PotBack/BodyBottom/BodyTop/Mouth:frame")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 2, 15 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "HideKeyboard"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1e-05, 1e-05 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "ShowKeyboard"
+length = 0.3
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.26, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ), Vector2( 1.1, 1.1 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="DynamicFont" id=1]
+size = 40
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[sub_resource type="Animation" id=8]
+resource_name = "Intro"
+length = 6.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("LogoHorizontal:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 1, 1.8, 3, 3.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../IntroText:percent_visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 5, 6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../OkArea2D:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 6, 6.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath("..")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 6.2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "activate_ok_button"
+} ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../Compicactus:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 4.2, 5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("LogoHorizontal:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../IntroText:percent_visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../OkArea2D:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../Compicactus:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="DynamicFont" id=10]
+size = 20
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=11]
+default_font = SubResource( 10 )
+
+[sub_resource type="DynamicFont" id=13]
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=14]
+default_font = SubResource( 13 )
+
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 50, 50 )
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = ExtResource( 5 )
+shader_param/multiplier = 1.0
+shader_param/blur = true
+
+[sub_resource type="Animation" id=16]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextureRect:material:shader_param/multiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "Timelapse"
+length = 13.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextureRect:material:shader_param/multiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 1, 5, 10.6, 10.8, 11, 11.3, 11.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.1, 1.0, 0.5, 1.5, 0.1, 1.0, 0.1, 1.0 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 12.9 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "show_game"
+} ]
+}
+
+[node name="MainScene" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -4.0
+margin_right = -4.0
+mouse_filter = 2
+script = ExtResource( 2 )
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 541.535, 300.263 )
+scale = Vector2( 69.4331, 39.4671 )
+texture = ExtResource( 4 )
+
+[node name="Compicactus" type="Node2D" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 130, 496 )
+
+[node name="PotBack" type="Sprite" parent="Compicactus"]
+position = Vector2( 0, -17 )
+scale = Vector2( 0.5, 0.5 )
+texture = SubResource( 17 )
+
+[node name="BodyBottom" type="Sprite" parent="Compicactus/PotBack"]
+position = Vector2( 0, -4 )
+texture = SubResource( 18 )
+offset = Vector2( 2, -76 )
+
+[node name="BodyTop" type="Sprite" parent="Compicactus/PotBack/BodyBottom"]
+position = Vector2( 2.00001, -122 )
+rotation = -0.00465245
+texture = SubResource( 20 )
+offset = Vector2( -0.48877, -70.759 )
+
+[node name="PupilLeft" type="Sprite" parent="Compicactus/PotBack/BodyBottom/BodyTop"]
+position = Vector2( 48.3996, -85.7757 )
+scale = Vector2( 1, 1 )
+texture = SubResource( 22 )
+offset = Vector2( 0.0844421, -1.17758 )
+
+[node name="PupilRight" type="Sprite" parent="Compicactus/PotBack/BodyBottom/BodyTop"]
+position = Vector2( 10.4, -85.9526 )
+scale = Vector2( 1, 1 )
+texture = SubResource( 22 )
+offset = Vector2( 0.0844421, -1.17758 )
+
+[node name="Hair" type="Sprite" parent="Compicactus/PotBack/BodyBottom/BodyTop"]
+position = Vector2( -11.0508, -204.054 )
+rotation = 0.0929971
+scale = Vector2( 1, 1 )
+texture = SubResource( 24 )
+offset = Vector2( -1.95599, -22.188 )
+
+[node name="Mouth" type="AnimatedSprite" parent="Compicactus/PotBack/BodyBottom/BodyTop"]
+position = Vector2( 28.0276, -5.86969 )
+frames = SubResource( 41 )
+
+[node name="PotFront" type="Sprite" parent="Compicactus/PotBack"]
+position = Vector2( 0, 2 )
+texture = SubResource( 19 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Compicactus"]
+anims/IdleHappy = SubResource( 44 )
+anims/RESET = SubResource( 43 )
+anims/Wakeup = SubResource( 42 )
+
+[node name="Grid" type="Node2D" parent="."]
+visible = false
+position = Vector2( 283, 129 )
+
+[node name="Keyboard" type="Node2D" parent="."]
+visible = false
+position = Vector2( 84, 391 )
+z_index = 1
+z_as_relative = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Keyboard"]
+anims/HideKeyboard = SubResource( 5 )
+anims/RESET = SubResource( 3 )
+anims/ShowKeyboard = SubResource( 4 )
+blend_times = [ "HideKeyboard", "ShowKeyboard", 0.1, "ShowKeyboard", "HideKeyboard", 0.1 ]
+
+[node name="FocusedLogoGramNode2D" type="Node2D" parent="."]
+visible = false
+position = Vector2( 533, 51 )
+
+[node name="FocusedLogoGramLabel" type="Label" parent="FocusedLogoGramNode2D"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -63.0
+margin_top = -39.0
+margin_right = 63.0
+margin_bottom = 39.0
+grow_horizontal = 2
+theme = SubResource( 2 )
+text = "Text"
+
+[node name="GeneratedTextNode2D" type="Node2D" parent="."]
+visible = false
+position = Vector2( 533, 526 )
+
+[node name="GeneratedLabel2" type="Label" parent="GeneratedTextNode2D"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -64.0
+margin_top = -39.0
+margin_right = 62.0
+margin_bottom = 39.0
+grow_horizontal = 2
+theme = SubResource( 2 )
+text = "Text"
+
+[node name="LogoStart" type="Node2D" parent="."]
+
+[node name="LogoHorizontal" type="Sprite" parent="LogoStart"]
+self_modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 553, 213 )
+scale = Vector2( 0.399456, 0.399456 )
+texture = ExtResource( 7 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LogoStart"]
+anims/Intro = SubResource( 8 )
+anims/RESET = SubResource( 9 )
+
+[node name="IntroText" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -360.0
+margin_top = -160.0
+margin_right = 343.0
+margin_bottom = -1.0
+grow_horizontal = 2
+theme = SubResource( 11 )
+text = "Thanks for choosing our chriogenic services. click \"Ok\" to start the process."
+autowrap = true
+percent_visible = 0.0
+
+[node name="DateText" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 267.0
+margin_top = -273.0
+margin_right = 529.0
+margin_bottom = -241.0
+grow_horizontal = 2
+theme = SubResource( 14 )
+text = "2022/10/23 10:22:05"
+
+[node name="OkArea2D" type="Area2D" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 532, 364 )
+
+[node name="OkText" type="Label" parent="OkArea2D"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -35.0
+margin_top = -37.0
+margin_right = 91.0
+margin_bottom = 41.0
+grow_horizontal = 2
+theme = SubResource( 2 )
+text = "Ok"
+
+[node name="OkCollisionShape2D" type="CollisionShape2D" parent="OkArea2D"]
+shape = SubResource( 12 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+material = SubResource( 7 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+mouse_filter = 2
+texture = ExtResource( 3 )
+expand = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+anims/RESET = SubResource( 16 )
+anims/Timelapse = SubResource( 15 )
+
+[node name="WifiOn" type="Sprite" parent="."]
+position = Vector2( 82, 49 )
+scale = Vector2( 0.0682353, 0.0682353 )
+texture = ExtResource( 8 )
+
+[node name="RobotDialogue" type="VBoxContainer" parent="."]
+margin_left = 230.0
+margin_top = 165.0
+margin_right = 390.0
+margin_bottom = 335.0
+
+[node name="Grounding" type="VBoxContainer" parent="."]
+margin_left = 447.0
+margin_top = 165.0
+margin_right = 607.0
+margin_bottom = 335.0
+
+[node name="HumanDialogue" type="VBoxContainer" parent="."]
+margin_left = 651.0
+margin_top = 165.0
+margin_right = 811.0
+margin_bottom = 335.0
+
+[node name="GridContainer" type="GridContainer" parent="."]
+margin_left = 263.0
+margin_top = 425.0
+margin_right = 981.0
+margin_bottom = 558.0
+columns = 5
