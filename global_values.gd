@@ -6,46 +6,105 @@ var color_palette = {
 }
 
 var dictionary = {
-	"past" : {
-		"draw":[
-			["circle", [0, 0], 20, 0],
-			["circle", [-10, 0], 6, 1]
-		]
+	"-" : {
+		"description": "Delete word"
 	},
-	"future" : {
-		"draw":[
-			["circle", [0, 0], 20, 0],
-			["circle", [10, 0], 6, 1]
-		]
+	"#1" : {
+		"description": "Wildcard word #1"
 	},
-	"now" : {
-		"draw":[
-			["circle", [0, 0], 20, 0],
-			["circle", [0, 10], 6, 1]
-		]
+	"#2" : {
+		"description": "Wildcard word #2"
 	},
 	"me" : {
-		"draw":[
-			["circle", [0, 0], 20, 0],
-			["circle", [0, 0], 8, 1]
-		]
+		"description": "I/me"
 	},
 	"you": {
-		"draw": [
-			["circle", [0, 0], 20, 1],
-			["circle", [0, 0], 8, 0]
-		]
+		"description": "You"
 	},
+	# Questions
+	"?" : {
+		"description": "Question"
+	},
+	"what?" : {
+		"description": "What?/How?"
+	},
+	"who?" : {
+		"description": "Who?"
+	},
+	# Yes/no
+	"yes" : {
+		"description": "Yes"
+	},
+	"no" : {
+		"description": "No/Not"
+	},
+	# Time
+	"past" : {
+		"description": "Past time"
+	},
+	"future" : {
+		"description": "Future time"
+	},
+	"now" : {
+		"description": "Present time"
+	},
+	"year" : {
+		"description": "A year"
+	},
+	# Adjetives
 	"happy": {
-		"draw": [
-			["circle", [0, 0], 20, 1],
-			["circle", [0, -2], 19, 0]
-		]
+		"description": "Being happy"
 	},
 	"sad": {
-		"draw": [
-			["circle", [0, -2], 20, 1],
-			["circle", [0, 0], 19, 0]
-		]
-	}
+		"description": "Being sad"
+	},
+	"good": {
+		"description": "Good/Fine"
+	},
+	"bad": {
+		"description": "Bad/Evil"
+	},
+	# Verbs
+	"help": {
+		"description": "To Help"
+	},
+	# Adverb?
+	"must": {
+		"description": "Must/Should"
+	},
+	# Things
+	"ai": {
+		"description": "An AI"
+	},
+	# Numbers
+	"0": {
+		"description": "Number 0"
+	},
+	"1": {
+		"description": "Number 1"
+	},
+	"2": {
+		"description": "Number 2"
+	},
+	"3": {
+		"description": "Number 3"
+	},
+	"4": {
+		"description": "Number 4"
+	},
+	"5": {
+		"description": "Number 5"
+	},
+	"6": {
+		"description": "Number 6"
+	},
+	"7": {
+		"description": "Number 7"
+	},
+	"8": {
+		"description": "Number 8"
+	},
+	"9": {
+		"description": "Number 9"
+	},
 }
