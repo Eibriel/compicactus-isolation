@@ -28,7 +28,7 @@ var timelapse = false
 var timelapse_time = 0
 var timelapse_completed = false
 
-var quick_start = false
+var quick_start = true
 
 var current_concept: String = "-"
 
@@ -62,7 +62,14 @@ func _ready():
 		compicactus.modulate = Color(1, 1, 1, 1)
 		show_game()
 	compicactus_animation.play("IdleHappy")
+	set_language()
 	
+
+func set_language():
+	tasks_button.text = tr("TASKS")
+	intro_text.text = tr("INTRO_TEXT")
+	send_button.text = tr("SEND")
+
 
 func activate_ok_button():
 	ok_button.connect("input_event", self, "_on_Ok_input_event", [])
@@ -74,6 +81,7 @@ func activate_ok_button():
 func show_game():
 	send_button.visible = true
 	tasks_button.visible = true
+	help_button.visible = true
 	# Add buttons to chat
 	robot_dialogue.add_child(HSeparator.new())
 	human_dialogue.add_child(HSeparator.new())
@@ -127,12 +135,13 @@ func show_game():
 	# var n: int = 0
 	for c in GlobalValues.dictionary:
 		var concept_item = concept_tree.create_item(root_concept)
-		concept_item.set_text(0, c)
+		concept_item.set_text(0, tr("WORD_%s" % c))
+		concept_item.set_metadata(0, c)
 
 
 func _on_Tree_cell_selected():
-	current_concept = concept_tree.get_selected().get_text(0)
-	description_label.text = GlobalValues.dictionary[current_concept].description
+	current_concept = concept_tree.get_selected().get_metadata(0) #.get_text(0)
+	description_label.text = tr("WORD_%s_DES" % current_concept) # GlobalValues.dictionary[current_concept].description
 
 
 func _on_HumanButton_button_up(button_id: int):
@@ -140,7 +149,7 @@ func _on_HumanButton_button_up(button_id: int):
 		return
 	human_concepts[button_id] = current_concept
 	var button: Button = human_buttons[button_id]
-	button.text = current_concept
+	button.text = tr("WORD_%s" % current_concept)
 
 
 func _on_GroundingButton_button_up(button_id: int):
@@ -148,7 +157,7 @@ func _on_GroundingButton_button_up(button_id: int):
 		return
 	grounding_concepts[button_id] = current_concept
 	var button: Button = grounding_buttons[button_id]
-	button.text = current_concept
+	button.text = tr("WORD_%s" % current_concept)
 
 
 func _on_Ok_input_event(_viewport, event, _node_idx):
@@ -200,7 +209,7 @@ func _on_SendButton_button_up():
 	for b in human_buttons:
 		b.text = "-"
 	if clean_array(human_concepts) == PoolStringArray(["you", "who?"]):
-		robot_answer(["me", "ai"], [])
+		robot_answer(["me", "ai", "me", "you", "help"], [])
 	# robot_answer(human_concepts, grounding_concepts)
 
 
@@ -225,13 +234,13 @@ func robot_answer(main: PoolStringArray, grounding: PoolStringArray):
 		if n >= main.size():
 			robot_buttons[n].text = "-"
 		else:
-			robot_buttons[n].text = main[n]
+			robot_buttons[n].text = tr("WORD_%s" % main[n])
 	
 	for n in range(grounding_buttons.size()):
 		if n >= grounding.size():
 			grounding_buttons[n].text = "-"
 		else:
-			grounding_buttons[n].text = grounding[n]
+			grounding_buttons[n].text = tr("WORD_%s" % grounding[n])
 
 
 func clean_array(a: PoolStringArray):
