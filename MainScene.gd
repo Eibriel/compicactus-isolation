@@ -22,6 +22,7 @@ onready var send_button: Button = $SendButton
 
 onready var tasks: Control = $Tasks
 onready var tasks_button: Button = $TasksButton
+onready var tasks_text: RichTextLabel = $Tasks/TasksText
 onready var help: Control = $Help
 onready var help_button: Button = $HelpButton
 onready var help_text: RichTextLabel = $Help/HelpText
@@ -43,7 +44,7 @@ var grounding_buttons = []
 
 var robot_buttons = []
 
-var languages = [
+var languages: Array = [
 	["en", "English"],
 	["es", "Español"]
 ]
@@ -59,6 +60,7 @@ func _ready():
 		b.text = lang[1]
 		language_container.add_child(b)
 		b.connect("button_up", self, "_on_LanguageButton_button_up", [lang[0]])
+	refresh_tasks()
 
 
 func _on_LanguageButton_button_up(lang: String):
@@ -97,7 +99,7 @@ func set_language():
 
 func activate_ok_button():
 	ok_button.connect("input_event", self, "_on_Ok_input_event", [])
-	tasks.visible = true
+	# tasks.visible = true
 	tasks_button.visible = true
 	help_button.visible = true
 
@@ -161,6 +163,9 @@ func show_game():
 		var concept_item = concept_tree.create_item(root_concept)
 		concept_item.set_text(0, tr("WORD_%s" % c))
 		concept_item.set_metadata(0, c)
+	
+	var r = compi_brain.parse([], [])
+	robot_answer(r[0], r[1])
 
 
 func _on_Tree_cell_selected():
@@ -190,7 +195,8 @@ func _on_Ok_input_event(_viewport, event, _node_idx):
 		intro_text.visible = false
 		logostart.visible = false
 		timelapse = true
-		shader_animation.play("Timelapse")
+		# shader_animation.play("Timelapse")
+		show_game()
 
 
 func _process(delta: float):
@@ -202,7 +208,7 @@ func update_date(delta: float):
 	var time_dict = Time.get_datetime_dict_from_system()
 	if timelapse:
 		timelapse_time += delta
-		var exponential_timelapse_time = pow(timelapse_time, timelapse_time/2)
+		var exponential_timelapse_time = pow(timelapse_time, timelapse_time/100)
 		time_dict.year += int(exponential_timelapse_time/30/12)
 		time_dict.month += int(exponential_timelapse_time/30) % 12
 		if time_dict.month > 12:
@@ -210,9 +216,9 @@ func update_date(delta: float):
 		time_dict.day += int(exponential_timelapse_time) % 30
 		if time_dict.day > 30:
 			time_dict.day -= 30
-		if time_dict.year >= 3022:
-			timelapse_completed = true
-			timelapse = false
+		# if time_dict.year >= 3022:
+		# 	timelapse_completed = true
+		# 	timelapse = false
 	if timelapse_completed:
 		time_dict.year += 1000
 	# var date_format: String = "{year}/{month}/{day} {hour}:{minute}:{second}"
@@ -267,6 +273,7 @@ func robot_answer(main: PoolStringArray, grounding: PoolStringArray):
 			grounding_buttons[n].text = "-"
 		else:
 			grounding_buttons[n].text = tr("WORD_%s" % grounding[n])
+	refresh_tasks()
 
 
 func clean_array(a: PoolStringArray):
@@ -275,3 +282,15 @@ func clean_array(a: PoolStringArray):
 		if i != "-":
 			r.append(i)
 	return r
+
+
+func refresh_tasks():
+	var text = "[b]%s[/b]\n" % tr("TASKS_TITLE")
+	var task_list = compi_brain.get_task_list()
+	for t in task_list:
+		if task_list[t].visible:
+			if task_list[t].completed:
+				text += "- [s]%s[/s]\n" % tr(t)
+			else:
+				text += "- %s\n" % tr(t)
+	tasks_text.bbcode_text = text

@@ -5,112 +5,50 @@ var color_palette = {
 	"logo_secondary_1": Color(1, 1, 1)
 }
 
-var dictionary = {
-	"-" : {
-		"description": "Delete word"
-	},
-	"#1" : {
-		"description": "Wildcard word #1"
-	},
-	"#2" : {
-		"description": "Wildcard word #2"
-	},
-	"me" : {
-		"description": "I/me"
-	},
-	"you": {
-		"description": "You"
-	},
+var dictionary = [
+	"-",
+	#"#1",
+	#"#2",
+	"compicactus",
+	"player",
+	# "me",
+	# "you",
 	# Questions
-	"?" : {
-		"description": "Question"
-	},
-	"what?" : {
-		"description": "What?/How?"
-	},
-	"who?" : {
-		"description": "Who?"
-	},
+	#"?",
+	"what?",
+	"hello",
+	#"who?",
 	# Yes/no
-	"yes" : {
-		"description": "Yes"
-	},
-	"no" : {
-		"description": "No/Not"
-	},
-	"unknown": {
-		
-	},
+	#"yes",
+	#"no",
+	#"unknown",
 	# Time
-	"past" : {
-		"description": "Past time"
-	},
-	"future" : {
-		"description": "Future time"
-	},
-	"now" : {
-		"description": "Present time"
-	},
-	"year" : {
-		"description": "A year"
-	},
+	#"past",
+	#"future",
+	#"now",
+	#"year",
 	# Adjetives
-	"happy": {
-		"description": "Being happy"
-	},
-	"sad": {
-		"description": "Being sad"
-	},
-	"good": {
-		"description": "Good/Fine"
-	},
-	"bad": {
-		"description": "Bad/Evil"
-	},
+	"happy",
+	"sad",
+	"good",
+	"bad",
 	# Verbs
-	"help": {
-		"description": "To Help"
-	},
+	#"help",
 	# Adverb?
-	"must": {
-		"description": "Must/Should"
-	},
+	#"must",
 	# Things
-	"ai": {
-		"description": "An AI"
-	},
-	"human": {
-		
-	},
+	# Concepts
+	#"ai",
+	#"human",
 	# Numbers
-	"0": {
-		"description": "Number 0"
-	},
-	"1": {
-		"description": "Number 1"
-	},
-	"2": {
-		"description": "Number 2"
-	},
-	"3": {
-		"description": "Number 3"
-	},
-	"4": {
-		"description": "Number 4"
-	},
-	"5": {
-		"description": "Number 5"
-	},
-	"6": {
-		"description": "Number 6"
-	},
-	"7": {
-		"description": "Number 7"
-	},
-	"8": {
-		"description": "Number 8"
-	},
-	"9": {
-		"description": "Number 9"
-	},
-}
+	"0",
+	"1",
+	"2",
+	"3",
+	#"4",
+	#"5",
+	#"6",
+	#"7",
+	#"8",
+	#"9",
+]

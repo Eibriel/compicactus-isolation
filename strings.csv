@@ -8,6 +8,11 @@ Don't worry, AIs can't feel pain.","Haz click en OK para enviar, y traer, a la I
 
 No te preocupes, lAs Ias no pueden sentir dolor."
 HELP_TEXT,This is a chatbot game.,Esto es un chatbot
+TASKS_TITLE,Tasks:,Tareas:
+TASK_START_TIMETRAVEL,Start time travel,Iniciar viaje en el tiempo
+TASK_SAY_HI,Say hello to Compicactus,Dile hola a Compicactus
+TASK_COUNTDOWN,"Countdown: 3, 2, 1","Cuenta regresiva: 3, 2, 1"
+TASK_ARE_YOU_ALIVE,"Is Compicactus alive?","¿Está vivo Compicactus?"
 WORD_-,-,-
 WORD_-_DES,Delete word,Eliminar palabra
 WORD_#1,#1,#1
@@ -18,12 +23,20 @@ WORD_me,me,yo
 WORD_me_DES,I/me,Yo
 WORD_you,you,tu
 WORD_you_DES,You,Tu/Usted
+WORD_compicactus,compicactus,compicactus
+WORD_compicactus_DES,The AI,La IA
+WORD_player,player,jugador
+WORD_player_DES,"You, player","Tu, jugador"
 WORD_?,?,?
 WORD_?_DES,Question,Pregunta
 WORD_what?,what?,qué?
 WORD_what?_DES,What?/How?,¿Qué?/¿Cómo?
 WORD_who?,who?,quién?
 WORD_who?_DES,Who?,¿Quién?
+WORD_where?,where?,donde?
+WORD_where?_DES,Where?,¿Donde?
+WORD_hello,hello,hola
+WORD_hello_DES,Greeting,Saludo
 WORD_yes,yes,si
 WORD_yes_DES,Yes,Si
 WORD_no,no,no
