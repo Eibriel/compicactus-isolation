@@ -1429,6 +1429,12 @@ margin_bottom = 73.0
 theme = ExtResource( 10 )
 text = "?"
 
+[node name="Languages" type="VBoxContainer" parent="."]
+margin_left = 416.0
+margin_top = 151.0
+margin_right = 679.0
+margin_bottom = 422.0
+
 [node name="Tasks" type="Control" parent="."]
 visible = false
 anchor_right = 1.0

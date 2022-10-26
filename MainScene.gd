@@ -1,6 +1,7 @@
 extends Control
 
 var concept_theme = load("res://themes/concept_button.tres")
+var compi_brain = load("res://compi_brain.gd").new()
 
 onready var intro_animation: AnimationPlayer = $LogoStart/AnimationPlayer
 
@@ -23,6 +24,8 @@ onready var tasks: Control = $Tasks
 onready var tasks_button: Button = $TasksButton
 onready var help: Control = $Help
 onready var help_button: Button = $HelpButton
+onready var help_text: RichTextLabel = $Help/HelpText
+onready var language_container: VBoxContainer = $Languages
 
 var timelapse = false
 var timelapse_time = 0
@@ -40,11 +43,31 @@ var grounding_buttons = []
 
 var robot_buttons = []
 
+var languages = [
+	["en", "English"],
+	["es", "Español"]
+]
+
 func _ready():
 	description_label.text = ""
 	send_button.visible = false
 	tasks_button.visible = false
 	help_button.visible = false
+	for lang in languages:
+		var b = Button.new()
+		b.theme = concept_theme
+		b.text = lang[1]
+		language_container.add_child(b)
+		b.connect("button_up", self, "_on_LanguageButton_button_up", [lang[0]])
+
+
+func _on_LanguageButton_button_up(lang: String):
+	TranslationServer.set_locale(lang)
+	language_container.visible = false
+	start_game()
+
+
+func start_game():
 	send_button.connect("button_up", self, "_on_SendButton_button_up", [])
 	tasks_button.connect("button_up", self, "_on_TasksHelpButton_button_up", ["Tasks"])
 	help_button.connect("button_up", self, "_on_TasksHelpButton_button_up", ["Help"])
@@ -67,6 +90,7 @@ func _ready():
 
 func set_language():
 	tasks_button.text = tr("TASKS")
+	help_text.bbcode_text = tr("HELP_TEXT")
 	intro_text.text = tr("INTRO_TEXT")
 	send_button.text = tr("SEND")
 
@@ -208,8 +232,10 @@ func _on_SendButton_button_up():
 	print(grounding_concepts)
 	for b in human_buttons:
 		b.text = "-"
-	if clean_array(human_concepts) == PoolStringArray(["you", "who?"]):
-		robot_answer(["me", "ai", "me", "you", "help"], [])
+	var r = compi_brain.parse(clean_array(human_concepts), clean_array(grounding_concepts))
+	robot_answer(r[0], r[1])
+	# if clean_array(human_concepts) == PoolStringArray(["you", "who?"]):
+	# 	robot_answer(["me", "ai", "me", "you", "help"], [])
 	# robot_answer(human_concepts, grounding_concepts)
 
 

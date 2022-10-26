@@ -38,6 +38,9 @@ var dictionary = {
 	"no" : {
 		"description": "No/Not"
 	},
+	"unknown": {
+		
+	},
 	# Time
 	"past" : {
 		"description": "Past time"
@@ -75,6 +78,9 @@ var dictionary = {
 	# Things
 	"ai": {
 		"description": "An AI"
+	},
+	"human": {
+		
 	},
 	# Numbers
 	"0": {

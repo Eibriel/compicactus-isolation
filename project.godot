@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/antialiased_line2d/antialiased_regular_polygon2d.gd"
 }, {
+"base": "Node",
+"class": "CompiBrain",
+"language": "GDScript",
+"path": "res://compi_brain.gd"
+}, {
 "base": "Area2D",
 "class": "GridDot",
 "language": "GDScript",
@@ -38,6 +43,7 @@ _global_script_class_icons={
 "AntialiasedLine2D": "res://addons/antialiased_line2d/antialiased_line2d.svg",
 "AntialiasedPolygon2D": "res://addons/antialiased_line2d/antialiased_polygon2d.svg",
 "AntialiasedRegularPolygon2D": "res://addons/antialiased_line2d/antialiased_regular_polygon2d.svg",
+"CompiBrain": "",
 "GridDot": "",
 "LogoGram": ""
 }
