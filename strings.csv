@@ -1,0 +1,76 @@
+id,en,es
+NONE,,
+TASKS,Tasks,Tareas
+SEND,Send,Enviar
+INTRO_TEXT,"Click OK to send the AI to the future and back.
+
+Don't worry, AIs can't feel pain.","Haz click en OK para enviar, y traer, a la IA al futuro.
+
+No te preocupes, lAs Ias no pueden sentir dolor."
+HELP_TEXT,This is a chatbot game.,Esto es un chatbot
+WORD_-,-,-
+WORD_-_DES,Delete word,Eliminar palabra
+WORD_#1,#1,#1
+WORD_#1_DES,Wildcard word #1,Palabra comodín #1
+WORD_#2,#2,#2
+WORD_#2_DES,Wildcard word #2,Palabra comodín #2
+WORD_me,me,yo
+WORD_me_DES,I/me,Yo
+WORD_you,you,tu
+WORD_you_DES,You,Tu/Usted
+WORD_?,?,?
+WORD_?_DES,Question,Pregunta
+WORD_what?,what?,qué?
+WORD_what?_DES,What?/How?,¿Qué?/¿Cómo?
+WORD_who?,who?,quién?
+WORD_who?_DES,Who?,¿Quién?
+WORD_yes,yes,si
+WORD_yes_DES,Yes,Si
+WORD_no,no,no
+WORD_no_DES,No/Not,No
+WORD_unknown,unknown,desconocido
+WORD_unknown_DES,Its unknown,Es desconocido
+WORD_past,past,pasado
+WORD_past_DES,Past time,Tiempo pasado
+WORD_future,future,futuro
+WORD_future_DES,Future time,Tiempo futuro
+WORD_now,now,ahora
+WORD_now_DES,Present time,Tiempo presente
+WORD_year,year,año
+WORD_year_DES,A year,Un año
+WORD_happy,happy,feliz
+WORD_happy_DES,To be happy,Ser feliz
+WORD_sad,sad,triste
+WORD_sad_DES,To be sad,Estar triste
+WORD_good,good,bueno
+WORD_good_DES,Good/Fine,Bueno/Bondadoso
+WORD_bad,bad,mal
+WORD_bad_DES,Bad/Evil,Mal/Malvado
+WORD_help,help,ayudar
+WORD_help_DES,To help,Ayudar
+WORD_must,must,deber
+WORD_must_DES,Must,Deber
+WORD_ai,ai,ia
+WORD_ai_DES,Artificial Intelligence,Inteligencia Artificial
+WORD_human,human,ser humano
+WORD_human_DES,Human being,Ser humano
+WORD_0,0,0
+WORD_0_DES,Number 0,Número 0
+WORD_1,1,1
+WORD_1_DES,Number 1,Número 1
+WORD_2,2,2
+WORD_2_DES,Number 2,Número 2
+WORD_3,3,3
+WORD_3_DES,Number 3,Número 3
+WORD_4,4,4
+WORD_4_DES,Number 4,Número 4
+WORD_5,5,5
+WORD_5_DES,Number 5,Número 5
+WORD_6,6,6
+WORD_6_DES,Number 6,Número 6
+WORD_7,7,7
+WORD_7_DES,Number 7,Número 7
+WORD_8,8,8
+WORD_8_DES,Number 8,Número 8
+WORD_9,9,9
+WORD_9_DES,Number 9,Número 9
