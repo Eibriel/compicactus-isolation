@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://Arrow.tscn" type="PackedScene" id=1]
 [ext_resource path="res://MainScene.gd" type="Script" id=2]
@@ -7,10 +7,104 @@
 [ext_resource path="res://shaders/BoxBlur.gdshader" type="Shader" id=5]
 [ext_resource path="res://images/Compicactus/compi-atlas.png" type="Texture" id=6]
 [ext_resource path="res://images/LogoHoriontal.png" type="Texture" id=7]
+[ext_resource path="res://themes/text_chat.tres" type="Theme" id=8]
 [ext_resource path="res://images/Compicactus/mouths.png" type="Texture" id=9]
 [ext_resource path="res://themes/concept_button.tres" type="Theme" id=10]
 [ext_resource path="res://themes/text_modals.tres" type="Theme" id=11]
-[ext_resource path="res://themes/big_text.tres" type="Theme" id=12]
+[ext_resource path="res://themes/text_message.tres" type="Theme" id=12]
+
+[sub_resource type="Animation" id=8]
+resource_name = "Intro"
+length = 6.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("LogoHorizontal:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 1, 1.8, 3, 3.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../IntroText:percent_visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 5, 6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 6.2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "activate_ok_button"
+} ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../Compicactus:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 4.2, 5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("LogoHorizontal:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../IntroText:percent_visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../Compicactus:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
 
 [sub_resource type="AtlasTexture" id=17]
 flags = 4
@@ -1040,125 +1134,73 @@ tracks/24/keys = {
 "values": [ 2, 15 ]
 }
 
-[sub_resource type="Animation" id=8]
-resource_name = "Intro"
-length = 6.5
+[sub_resource type="Animation" id=50]
+resource_name = "Processing1"
 tracks/0/type = "value"
-tracks/0/path = NodePath("LogoHorizontal:self_modulate")
+tracks/0/path = NodePath(".:value")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 1, 1.8, 3, 3.8 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.3, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [ 0.0, 50.0, 100.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../IntroText:percent_visible")
+tracks/1/path = NodePath("../SendButton:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 5, 6 ),
+"times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 0.0, 1.0 ]
+"update": 1,
+"values": [ true, false ]
 }
-tracks/2/type = "value"
-tracks/2/path = NodePath("../OkArea2D:modulate")
+tracks/2/type = "method"
+tracks/2/path = NodePath("..")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 6, 6.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/3/type = "method"
-tracks/3/path = NodePath("..")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 6.2 ),
+"times": PoolRealArray( 1 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
-"method": "activate_ok_button"
+"method": "robot_answer"
 } ]
 }
-tracks/4/type = "value"
-tracks/4/path = NodePath("../Compicactus:modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 4.2, 5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=51]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("LogoHorizontal:self_modulate")
+tracks/0/path = NodePath(".:value")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("../IntroText:percent_visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 0.0 ]
 }
-tracks/2/type = "value"
-tracks/2/path = NodePath("../OkArea2D:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
+tracks/1/type = "value"
+tracks/1/path = NodePath("../SendButton:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ) ]
+"values": [ false ]
 }
-tracks/3/type = "value"
-tracks/3/path = NodePath("../Compicactus:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ) ]
-}
-
-[sub_resource type="RectangleShape2D" id=12]
-extents = Vector2( 50, 50 )
 
 [sub_resource type="ShaderMaterial" id=7]
 shader = ExtResource( 5 )
@@ -1238,11 +1280,27 @@ margin_left = -4.0
 margin_right = -4.0
 mouse_filter = 2
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 434.0 ],
+"_edit_vertical_guides_": [ 235.0, 797.0 ]
+}
 
 [node name="Background" type="Sprite" parent="."]
 position = Vector2( 541.535, 300.263 )
 scale = Vector2( 69.4331, 39.4671 )
 texture = ExtResource( 4 )
+
+[node name="LogoStart" type="Node2D" parent="."]
+
+[node name="LogoHorizontal" type="Sprite" parent="LogoStart"]
+self_modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 531, 261 )
+scale = Vector2( 0.399456, 0.399456 )
+texture = ExtResource( 7 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LogoStart"]
+anims/Intro = SubResource( 8 )
+anims/RESET = SubResource( 9 )
 
 [node name="Compicactus" type="Node2D" parent="."]
 modulate = Color( 1, 1, 1, 0 )
@@ -1294,19 +1352,8 @@ anims/IdleHappy = SubResource( 44 )
 anims/RESET = SubResource( 43 )
 anims/Wakeup = SubResource( 42 )
 
-[node name="LogoStart" type="Node2D" parent="."]
-
-[node name="LogoHorizontal" type="Sprite" parent="LogoStart"]
-self_modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 531, 261 )
-scale = Vector2( 0.399456, 0.399456 )
-texture = ExtResource( 7 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="LogoStart"]
-anims/Intro = SubResource( 8 )
-anims/RESET = SubResource( 9 )
-
 [node name="IntroText" type="Label" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1316,66 +1363,84 @@ margin_top = -154.0
 margin_right = 438.0
 margin_bottom = 5.0
 grow_horizontal = 2
-theme = ExtResource( 11 )
+theme = ExtResource( 8 )
 text = "Click OK to send the AI to the future and back.
 
 Don't worry, AIs can't feel pain."
 autowrap = true
 percent_visible = 0.0
 
-[node name="OkArea2D" type="Area2D" parent="."]
-modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 628, 390 )
-
-[node name="OkText" type="Label" parent="OkArea2D"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -24.0
-margin_top = -21.0
-margin_right = 102.0
-margin_bottom = 57.0
-grow_horizontal = 2
-theme = ExtResource( 12 )
+[node name="OkButton" type="Button" parent="."]
+visible = false
+margin_left = 573.0
+margin_top = 328.0
+margin_right = 645.0
+margin_bottom = 366.0
+theme = ExtResource( 10 )
 text = "Ok"
 
-[node name="OkCollisionShape2D" type="CollisionShape2D" parent="OkArea2D"]
-shape = SubResource( 12 )
-
 [node name="Tree" type="Tree" parent="."]
-margin_left = 856.0
-margin_top = 129.0
-margin_right = 1041.0
-margin_bottom = 574.0
+margin_left = 861.0
+margin_top = 56.0
+margin_right = 1046.0
+margin_bottom = 501.0
 theme = ExtResource( 10 )
 allow_reselect = true
 hide_folding = true
 hide_root = true
 
 [node name="SendButton" type="Button" parent="."]
-margin_left = 704.0
-margin_top = 79.0
-margin_right = 776.0
-margin_bottom = 117.0
+margin_left = 717.0
+margin_top = 486.0
+margin_right = 789.0
+margin_bottom = 524.0
 theme = ExtResource( 10 )
 text = "Send"
 
 [node name="TasksButton" type="Button" parent="."]
-margin_left = 844.0
-margin_top = 36.0
-margin_right = 924.0
-margin_bottom = 74.0
+margin_left = 164.0
+margin_top = 41.0
+margin_right = 244.0
+margin_bottom = 79.0
 theme = ExtResource( 10 )
 text = "Tasks"
 
 [node name="HelpButton" type="Button" parent="."]
-margin_left = 942.0
-margin_top = 36.0
-margin_right = 996.0
-margin_bottom = 74.0
+margin_left = 86.0
+margin_top = 41.0
+margin_right = 140.0
+margin_bottom = 79.0
 theme = ExtResource( 10 )
 text = "?"
+
+[node name="ChatTextLabel" type="RichTextLabel" parent="."]
+margin_left = 239.0
+margin_top = 115.0
+margin_right = 801.0
+margin_bottom = 419.0
+theme = ExtResource( 8 )
+bbcode_enabled = true
+scroll_following = true
+
+[node name="AnswerProgressBar" type="ProgressBar" parent="."]
+margin_left = 242.0
+margin_top = 442.0
+margin_right = 793.0
+margin_bottom = 456.0
+rounded = true
+percent_visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnswerProgressBar"]
+anims/Processing1 = SubResource( 50 )
+anims/RESET = SubResource( 51 )
+
+[node name="MessageTextLabel" type="RichTextLabel" parent="."]
+margin_left = 254.0
+margin_top = 467.0
+margin_right = 699.0
+margin_bottom = 545.0
+theme = ExtResource( 12 )
+bbcode_enabled = true
 
 [node name="Languages" type="VBoxContainer" parent="."]
 margin_left = 416.0
@@ -1450,7 +1515,7 @@ margin_top = 87.0
 margin_right = 940.0
 margin_bottom = 481.0
 mouse_filter = 2
-theme = ExtResource( 11 )
+theme = ExtResource( 8 )
 bbcode_enabled = true
 bbcode_text = "This is a chatbot game."
 text = "This is a chatbot game."
@@ -1544,8 +1609,10 @@ modulate = Color( 1, 1, 1, 0.972549 )
 material = SubResource( 45 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 1.0
-margin_right = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 2.0
+margin_bottom = 2.0
 mouse_filter = 2
 texture = SubResource( 47 )
 expand = true

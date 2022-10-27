@@ -6,7 +6,6 @@ var color_palette = {
 }
 
 var dictionary = [
-	"-",
 	"hello"
 ]
 

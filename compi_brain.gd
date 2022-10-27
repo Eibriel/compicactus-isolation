@@ -308,7 +308,7 @@ func execute_scene(scene, target, parameters):
 			if person != "compicactus":
 				if long_term.has(person):
 					long_term[person].mood = mood
-					return [[person, mood], []]
+					return [person, mood]
 			else:
 				return ["compicactus", long_term["compicactus"].mood]
 	

@@ -2,7 +2,9 @@
 
 [ext_resource path="res://fonts/Roboto-Medium.ttf" type="DynamicFontData" id=1]
 
-[sub_resource type="StyleBoxEmpty" id=7]
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.6, 0.6, 0.6, 0.0313726 )
+corner_detail = 20
 
 [sub_resource type="DynamicFont" id=1]
 size = 25
@@ -10,4 +12,4 @@ font_data = ExtResource( 1 )
 
 [resource]
 default_font = SubResource( 1 )
-Tree/styles/bg = SubResource( 7 )
+Tree/styles/bg = SubResource( 2 )

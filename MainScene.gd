@@ -6,7 +6,7 @@ var compi_brain = load("res://compi_brain.gd").new()
 onready var intro_animation: AnimationPlayer = $LogoStart/AnimationPlayer
 
 onready var logostart: Node2D = $LogoStart
-onready var ok_button: Area2D = $OkArea2D
+onready var ok_button: Button = $OkButton
 onready var intro_text: Label = $IntroText
 onready var shader_animation: AnimationPlayer = $CanvasLayer/AnimationPlayer
 onready var compicactus_animation: AnimationPlayer = $Compicactus/AnimationPlayer
@@ -14,6 +14,10 @@ onready var compicactus: Node2D = $Compicactus
 
 onready var concept_tree: Tree = $Tree
 onready var send_button: Button = $SendButton
+onready var chat_text: RichTextLabel = $ChatTextLabel
+onready var message_text: RichTextLabel = $MessageTextLabel
+onready var answer_progress: ProgressBar = $AnswerProgressBar
+onready var message_animation: AnimationPlayer = $AnswerProgressBar/AnimationPlayer
 
 onready var tasks: Control = $Tasks
 onready var tasks_button: Button = $TasksButton
@@ -32,18 +36,14 @@ onready var tutorial_2_text: Label = $Tutorial/Tutorial2/TutorialText2
 onready var tutorial_3: Node2D = $Tutorial/Tutorial3
 onready var tutorial_3_text: Label = $Tutorial/Tutorial3/TutorialText3
 
-var quick_start = true
+var quick_start = false
 
 var tutorial_completed: bool = false
 var tutorial_level: int = 1
 
-var current_concept: String = "-"
-
 var human_concepts: PoolStringArray = []
-var human_buttons = []
-
 var robot_concepts: PoolStringArray = []
-var robot_buttons = []
+var robot_concepts_b: PoolStringArray = []
 
 var languages: Array = [
 	["en", "English"],
@@ -54,6 +54,10 @@ func _ready():
 	send_button.visible = false
 	tasks_button.visible = false
 	help_button.visible = false
+	concept_tree.visible = false
+	message_text.visible = false
+	chat_text.visible = false
+	answer_progress.visible = false
 	ending.visible = false
 	tutorial_1.visible = false
 	tutorial_2.visible = false
@@ -89,7 +93,6 @@ func start_game():
 		ok_button.visible = false
 		intro_text.visible = false
 		logostart.visible = false
-		# timelapse_completed = true
 		compicactus.modulate = Color(1, 1, 1, 1)
 		show_game()
 	compicactus_animation.play("IdleHappy")
@@ -108,8 +111,10 @@ func set_language():
 
 
 func activate_ok_button():
-	ok_button.connect("input_event", self, "_on_Ok_input_event", [])
+	ok_button.connect("button_up", self, "_on_Ok_button_up", [])
 	# tasks.visible = true
+	intro_text.visible = true
+	ok_button.visible = true
 	tasks_button.visible = true
 	help_button.visible = true
 
@@ -118,11 +123,14 @@ func show_game():
 	send_button.visible = true
 	tasks_button.visible = true
 	help_button.visible = true
+	concept_tree.visible = true
+	message_text.visible = true
+	chat_text.visible = true
+	answer_progress.visible = true
 	concept_tree.connect("cell_selected", self, "_on_Tree_cell_selected", [])
-
 	fill_keyboard()
-	var r = compi_brain.parse([])
-	robot_answer(r)
+	robot_concepts = compi_brain.parse([])
+	robot_answer()
 	set_tutorial("tutorial_1")
 
 
@@ -139,26 +147,22 @@ func fill_keyboard():
 		concept_item.set_metadata(0, c)
 
 
-var word_number = 0
-
 func _on_Tree_cell_selected():
-	current_concept = concept_tree.get_selected().get_metadata(0)
+	var current_concept = concept_tree.get_selected().get_metadata(0)
 	if !tutorial_completed and tutorial_level == 1 and current_concept != "-":
 		set_tutorial("tutorial_2")
 		tutorial_level = 2
-	# Add world directly
-	if word_number <= 8:
-		# _on_HumanButton_button_up(word_number)
-		word_number += 1
+	human_concepts.append(current_concept)
+	message_text.bbcode_text = ""
+	for c in human_concepts:
+		message_text.bbcode_text += tr("WORD_%s" % c) + " "
 
 
-func _on_Ok_input_event(_viewport, event, _node_idx):
-	if event is InputEventScreenTouch and event.is_pressed():
-		ok_button.visible = false
-		intro_text.visible = false
-		logostart.visible = false
-		# shader_animation.play("Timelapse")
-		show_game()
+func _on_Ok_button_up():
+	ok_button.visible = false
+	intro_text.visible = false
+	logostart.visible = false
+	show_game()
 
 
 func _on_TaskCompleted(task_name: String):
@@ -167,15 +171,16 @@ func _on_TaskCompleted(task_name: String):
 
 func _on_SendButton_button_up():
 	print(human_concepts)
-	for b in human_buttons:
-		b.text = "-"
-	var r = compi_brain.parse(clean_array(human_concepts))
-	robot_answer(r)
+	robot_concepts = compi_brain.parse(human_concepts)
+	robot_concepts_b = compi_brain.parse([])
+	add_to_chat(human_concepts, "Human")
+	message_text.bbcode_text = ""
 	human_concepts = []
-	word_number = 0
-	if tutorial_level == 3:
-		set_tutorial("")
-		tutorial_completed = true
+	message_animation.play("Processing1")
+	
+	#if tutorial_level == 3:
+	#	set_tutorial("")
+	#	tutorial_completed = true
 
 
 func _on_TasksHelpButton_button_up(m: String):
@@ -194,18 +199,21 @@ func _on_TasksHelp_gui_input(event, m: String):
 				help.visible = false
 
 
-func robot_answer(main: PoolStringArray):
+func robot_answer():
+	add_to_chat(robot_concepts, "Compicactus")
+	if robot_concepts_b != robot_concepts and robot_concepts_b.size() > 0:
+		add_to_chat(robot_concepts_b, "Compicactus")
 	robot_concepts = []
-	# robot_buttons[n].text = tr("WORD_%s" % main[n])
-	# grounding_buttons[n].text = tr("WORD_%s" % grounding[n])
 
 
-func clean_array(a: PoolStringArray):
-	var r: PoolStringArray = []
-	for i in a:
-		if i != "-":
-			r.append(i)
-	return r
+func add_to_chat(main: PoolStringArray, from: String):
+	var color = "white"
+	if from == "Human":
+		color = "grey"
+	chat_text.bbcode_text += "\n\n[color=" + color + "]" + from + ": "
+	for c in main:
+		chat_text.bbcode_text += tr("WORD_%s" % c) + " "
+	chat_text.bbcode_text += "[/color]"
 
 
 func refresh_tasks():
