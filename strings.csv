@@ -40,97 +40,51 @@ TASK_LEAVE_CAPSULE,Leave capsule,Sal de la cápsula
 TASK_COUNTDOWN,"Countdown: 3, 2, 1","Cuenta regresiva: 3, 2, 1"
 TASK_ARE_YOU_ALIVE,"Is Compicactus alive?","¿Está vivo Compicactus?"
 WORD_-,-,-
-WORD_-_DES,Delete word,Eliminar palabra
 WORD_#1,#1,#1
-WORD_#1_DES,Wildcard word #1,Palabra comodín #1
 WORD_#2,#2,#2
-WORD_#2_DES,Wildcard word #2,Palabra comodín #2
 WORD_me,me,yo
-WORD_me_DES,I/me,Yo
 WORD_you,you,tu
-WORD_you_DES,You,Tu/Usted
 WORD_compicactus,compicactus,compicactus
-WORD_compicactus_DES,The AI,La IA
 WORD_player,player,jugador
-WORD_player_DES,"You, player","Tu, jugador"
 WORD_?,?,?
-WORD_?_DES,Question,Pregunta
 WORD_start,start,iniciar
-WORD_start_DES,Start something,Iniciar algo
 WORD_stop,stop,detener
-WORD_stop_DES,Stop something,Detener algo
 WORD_capsule,capsule,cápsula
-WORD_capsule_DES, This time machine,Ésta máquina del tiempo
 WORD_set,set,setear
-WORD_set_DES,Set value,Setear un valor
 WORD_forward,to future,al futuro
-WORD_forward_DES,To the future,Al futuro
 WORD_backward,to past,al pasado
-WORD_backward_DES,To the past,Al pasado
 WORD_what?,status?,estado?
-WORD_what?_DES,What is?/How is doing?,¿Qué es?/¿Cómo le va?
 WORD_who?,who?,quién?
-WORD_who?_DES,Who?,¿Quién?
 WORD_where?,where?,donde?
-WORD_where?_DES,Where?,¿Donde?
 WORD_hello,hello,hola
-WORD_hello_DES,Greeting,Saludo
 WORD_yes,yes,si
-WORD_yes_DES,Yes,Si
 WORD_no,no,no
-WORD_no_DES,No/Not,No
 WORD_ok,ok,ok
-WORD_ok_DES,Ok,Ok
 WORD_unknown,unknown,desconocido
-WORD_unknown_DES,Its unknown,Es desconocido
 WORD_past,past,pasado
-WORD_past_DES,Past time,Tiempo pasado
 WORD_future,future,futuro
-WORD_future_DES,Future time,Tiempo futuro
 WORD_now,now,ahora
-WORD_now_DES,Present time,Tiempo presente
 WORD_year,year,año
-WORD_year_DES,A year,Un año
 WORD_happy,happy,feliz
-WORD_happy_DES,To be happy,Ser feliz
 WORD_sad,sad,triste
-WORD_sad_DES,To be sad,Estar triste
 WORD_good,good,bien
-WORD_good_DES,Good/Fine,Bien/Bueno
 WORD_bad,bad,mal
-WORD_bad_DES,Bad/Evil,Mal/Malvado
 WORD_help,help,ayudar
-WORD_help_DES,To help,Ayudar
 WORD_location,location,lugar
-WORD_location_DES,Location or Place,Un lugar
 WORD_purpose,purpose,propósito
-WORD_purpose_DES,Function or Directive,Función o Directiva
 WORD_must,must,deber
-WORD_must_DES,Must,Deber
 WORD_ai,ai,ia
-WORD_ai_DES,Artificial Intelligence,Inteligencia Artificial
 WORD_human,human,ser humano
-WORD_human_DES,Human being,Ser humano
 WORD_0,0,0
-WORD_0_DES,Number 0,Número 0
 WORD_1,1,1
-WORD_1_DES,Number 1,Número 1
 WORD_2,2,2
-WORD_2_DES,Number 2,Número 2
 WORD_3,3,3
-WORD_3_DES,Number 3,Número 3
 WORD_4,4,4
-WORD_4_DES,Number 4,Número 4
 WORD_5,5,5
-WORD_5_DES,Number 5,Número 5
 WORD_6,6,6
-WORD_6_DES,Number 6,Número 6
 WORD_7,7,7
-WORD_7_DES,Number 7,Número 7
 WORD_8,8,8
-WORD_8_DES,Number 8,Número 8
 WORD_9,9,9
-WORD_9_DES,Number 9,Número 9
 AIR,Air:,Aire:
 AIRQUALITY_toxic,Toxic,Tóxico
 AIRQUALITY_moderated,Moderated,Moderado

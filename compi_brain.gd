@@ -1,55 +1,15 @@
 extends Node
 class_name CompiBrain
 
-# The earth is in a nuclear winter
-# you must go to the future to find a time
-# where the planet is habitable again
-# The AI Compicactus will asist you in the journey
-# Good luck!
-
-# Tasks:
-# Enter capsule
-# Start time travel
-# Wait until the conditions are good
-# Stop time travel
-# * Keep moving forward
-# * Shut down Compicactus
-# * Go back to your time
-# * Stay
-# Send date to the past
-# * Leave capsule
-
-# If player stops travel early the date will be wrong
-# Player can keep moving forward, or go back in time
-# - 
-# If player waits for conditions to be good the time machine will fail
-# The player can stay with Compicactus (and future humans), or let Compicactus sacrify itself so the person can go back
-# -
-# If the player keeps going forward the player will find another nuclear winter
-# Compicactus will run out of energy
-
-var time_mult = 1
 #
 signal task_completed
-signal date_updated
-signal word_added
+# signal word_added
 signal ending_reached
-signal air_quality_updated
-signal direction_changed
 signal words_added
 
-var timelapse := false
-var timelapse_time: float = 0.0
-var timelapse_completed := false
-var date_text: String = ""
-var fuel_amount: float = 100.0
-
-var travel_direction = 1
 
 var current_scene = ""
 var current_target = ""
-
-var air_quality = "toxic"
 
 var task_list: Dictionary = {
 	"TASK_ENTER_CAPSULE": {"visible": true, "completed": true},
@@ -301,8 +261,8 @@ class MyCustomSorter:
 			return true
 		return false
 
-func parse(question: PoolStringArray, grounding: PoolStringArray):
-	var filtered_scenes = select_scene(question, grounding)
+func parse(question: PoolStringArray):
+	var filtered_scenes = select_scene(question)
 	var scene_values = select_best_scenes(filtered_scenes)
 	scene_values.sort_custom(MyCustomSorter, "sort")
 	var selected_scene = select_one_scene(scene_values)
@@ -313,98 +273,100 @@ func parse(question: PoolStringArray, grounding: PoolStringArray):
 func execute_scene(scene, target, parameters):
 	print(scene, ":", target)
 	current_scene = scene
-	if scene == "answer_how_is_person":
-		var person = parameters.person
-		if long_term.has(person) and long_term[person].has("mood"):
-			var mood = long_term[person].mood
-			return [[person, mood], []]
-		else:
-			return [[person, "unknown"], []]
 	
-	elif scene == "answer_hello":
-		set_task_completed("TASK_SAY_HI")
-		if long_term.compicactus.introduced == "yes" and !long_term.player.has("mood"):
-			return [["hello"], []]
-		long_term.compicactus.introduced = "yes"
-		add_words(GlobalValues.tutorial_a)
-		return [["player", "what?"], []]
+	match scene:
+		"answer_how_is_person":
+			var person = parameters.person
+			if long_term.has(person) and long_term[person].has("mood"):
+				var mood = long_term[person].mood
+				return [person, mood]
+			else:
+				return [person, "unknown"]
+	
+		"answer_hello":
+			set_task_completed("TASK_SAY_HI")
+			if long_term.compicactus.introduced == "yes" and !long_term.player.has("mood"):
+				return ["hello"]
+			long_term.compicactus.introduced = "yes"
+			add_words(GlobalValues.tutorial_a)
+			return ["player", "what?"]
 		
-	elif scene == "answer_number":
-		var next_number = {
-			"3": "2",
-			"2": "1",
-			"1": "0"
-		}
-		if next_number.has(parameters.number):
-			return [[next_number[parameters.number]], []]
-		else:
-			return [["100"], []]
+		"answer_number":
+			var next_number = {
+				"3": "2",
+				"2": "1",
+				"1": "0"
+			}
+			if next_number.has(parameters.number):
+				return [next_number[parameters.number]]
+			else:
+				return ["100"]
 	
-	elif scene == "answer_person_mood":
-		var person = parameters.person
-		var mood = parameters.mood
-		if person != "compicactus":
-			if long_term.has(person):
-				long_term[person].mood = mood
-				return [[person, mood], []]
-		else:
-			return [["compicactus", long_term["compicactus"].mood], []]
+		"answer_person_mood":
+			var person = parameters.person
+			var mood = parameters.mood
+			if person != "compicactus":
+				if long_term.has(person):
+					long_term[person].mood = mood
+					return [[person, mood], []]
+			else:
+				return ["compicactus", long_term["compicactus"].mood]
 	
-	elif scene == "answer_start_device":
-		var device = parameters.device
-		if device == "capsule":
-			start_timetravel()
-			task_list
-			return [["ok", "capsule", "start"], []]
+		"answer_start_device":
+			var device = parameters.device
+			if device == "capsule":
+				# start_timetravel()
+				task_list
+				return ["ok", "capsule", "start"]
 	
-	elif scene == "answer_stop_device":
-		var device = parameters.device
-		if device == "capsule":
-			stop_timetravel()
-			return [["ok", "capsule", "stop"], []]
+		"answer_stop_device":
+			var device = parameters.device
+			if device == "capsule":
+				# stop_timetravel()
+				return ["ok", "capsule", "stop"]
 	
-	elif scene in ["answer_set_backward", "answer_capsule_set_backward"]:
-		set_backward()
-		return [["ok", "capsule", "backward", "set"], []]
+		"answer_set_backward", "answer_capsule_set_backward":
+			# set_backward()
+			return ["ok", "capsule", "backward", "set"]
 		
-	elif scene in ["answer_set_forward", "answer_capsule_set_forward"]:
-		set_forward()
-		return [["ok", "capsule", "forward", "set"], []]
+		"answer_set_forward", "answer_capsule_set_forward":
+			# set_forward()
+			return ["ok", "capsule", "forward", "set"]
 	
-	elif scene == "answer_compicactus":
-		return [["me", "compicactus"], []]
+		"answer_compicactus":
+			return ["me", "compicactus"]
 	
-	elif scene == "answer_player":
-		return [["you", "player"], []]
+		"answer_player":
+			return ["you", "player"]
 	
-	elif scene == "answer_capsule":
-		return [["#1", "location", "capsule"], ["compicactus", "player"]]
+		"answer_capsule":
+			return ["compicactus", "player", "location", "capsule"]
 	
-	elif scene == "answer_compicactus_purpose":
-		return [["compicactus", "player", "help"], []]
+		"answer_compicactus_purpose":
+			return ["compicactus", "player", "help"]
 	
-	elif scene == "answer_capsule_purpose":
-		return [["capsule", "forward", "help"], []]
+		"answer_capsule_purpose":
+			return ["capsule", "forward", "help"]
 	
 	
-	# Initiated by AI
-	elif scene == "ask_to_time_travel":
-		add_words(GlobalValues.tutorial_b)
-		return [["compicactus", "capsule", "start", "?"], []]
+		# Initiated by AI
+		"ask_to_time_travel":
+			add_words(GlobalValues.tutorial_b)
+			return ["compicactus", "capsule", "start", "?"]
 	
-	elif scene == "locate":
-		return [["compicactus", "where?"], []]
+		"locate":
+			return ["compicactus", "where?"]
 		
-	if scene == "say_hi":
-		# long_term.compicactus.introduced = "yes"
-		return [["hello"], []]
+		"say_hi":
+			# long_term.compicactus.introduced = "yes"
+			return ["hello"]
 		
-	if scene == "ask_how_are_you":
-		return [["player", "what?"], []]
-	
-	if scene == "get_person_children_count":
-		return [["player", "children", "how many?"], []]
-	return [["unknown"], []]
+		"ask_how_are_you":
+			return ["player", "what?"]
+		
+		"get_person_children_count":
+			return ["player", "children", "how many?"]
+	return ["unknown"]
 
 func select_one_scene(scenes):
 	return scenes[0]
@@ -439,7 +401,7 @@ func select_best_scenes(filtered_scenes):
 			
 	return scene_values
 		
-func select_scene(question, grounding):
+func select_scene(question):
 	# simulate scenes
 	var filtered_scenes = []
 	for scene in scenes:
@@ -455,7 +417,7 @@ func select_scene(question, grounding):
 			if question.size() > 0:
 				var to_match = scenes[scene].match
 				var split_match = to_match.split("+")
-				var string_question = question_to_string(question, grounding)
+				var string_question = question_to_string(question)
 				if string_question == to_match:
 					filtered_scenes.append([scene, ""])
 				else:
@@ -494,7 +456,7 @@ func is_instance_of(concept: String, instance: String):
 				return true
 	return false
 
-func question_to_string(question, grounding):
+func question_to_string(question):
 	var string_question = question.join("+")
 	return string_question
 
@@ -566,89 +528,6 @@ func set_task_completed(task_name: String):
 
 func get_task_list():
 	return task_list
-
-
-#func _process(delta):
-#	update_date(delta)
-
-
-func start_timetravel():
-	timelapse = true
-	set_task_completed("TASK_START_TIMETRAVEL")
-
-func stop_timetravel():
-	timelapse = false
-	set_task_completed("TASK_STOP_TIMETRAVEL")
-
-func set_forward():
-	travel_direction = 1
-	long_term.capsule.direction = "future"
-	emit_signal("direction_changed", "forward")
-
-func set_backward():
-	travel_direction = -1
-	long_term.capsule.direction = "past"
-	emit_signal("direction_changed", "backward")
-
-func set_air_quality(timelapse_time):
-	var new_quality = ""
-	if timelapse_time < 0:
-		new_quality = "clean"
-	elif timelapse_time > 30:
-		new_quality = "clean"
-	elif timelapse_time > 20:
-		new_quality = "moderated"
-	else:
-		new_quality = "toxic"
-
-	if new_quality != air_quality:
-		air_quality = new_quality
-		if new_quality == "clean":
-			set_task_completed("TASK_FIND_GOOD_CONDITIONS")
-		emit_signal("air_quality_updated")
-
-func get_air_quality():
-	return air_quality
-
-func update_date(delta: float):
-	var time_dict = Time.get_datetime_dict_from_system()
-	if timelapse:
-		timelapse_time += delta*travel_direction*time_mult
-		set_air_quality(timelapse_time)
-		fuel_amount -= delta*time_mult
-		if fuel_amount < 0:
-			stop_timetravel()
-			fuel_amount = 0
-			if timelapse_time < -40:
-				fire_ending("good_old_times")
-			elif timelapse_time > 40:
-				fire_ending("too_far")
-	var exponential_timelapse_time = timelapse_time*10000
-	time_dict.year += int(exponential_timelapse_time/30/12)
-	time_dict.month += int(exponential_timelapse_time/30) % 12
-	if time_dict.month > 12:
-		time_dict.month -= 12
-	time_dict.day += int(exponential_timelapse_time) % 30
-	if time_dict.day > 30:
-		time_dict.day -= 30
-	var date_format: String = "{year}/{month}/{day}"
-	date_text = date_format.format({
-		"year": time_dict.year,
-		"month": "%02d" % time_dict.month,
-		"day": "%02d" % time_dict.day,
-		"hour": "%02d" % time_dict.hour,
-		"minute": "%02d" % time_dict.minute,
-		"second": "%02d" % time_dict.second,
-	})
-	emit_signal("date_updated")
-
-
-func get_fuel_amount():
-	return fuel_amount
-
-
-func get_date_text():
-	return date_text
 
 
 func fire_ending(ending: String):

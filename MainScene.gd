@@ -5,22 +5,13 @@ var compi_brain = load("res://compi_brain.gd").new()
 
 onready var intro_animation: AnimationPlayer = $LogoStart/AnimationPlayer
 
-onready var description_label: Label = $GeneratedTextNode2D/GeneratedLabel2
 onready var logostart: Node2D = $LogoStart
 onready var ok_button: Area2D = $OkArea2D
-onready var date_text: Label = $DateText
-onready var air_text: Label = $AirText
-onready var fuel_text: Label = $FuelText
-onready var fuel_bar: ProgressBar = $FuelBar
-onready var direction_text: Label = $DirectionText
 onready var intro_text: Label = $IntroText
 onready var shader_animation: AnimationPlayer = $CanvasLayer/AnimationPlayer
 onready var compicactus_animation: AnimationPlayer = $Compicactus/AnimationPlayer
 onready var compicactus: Node2D = $Compicactus
 
-onready var robot_dialogue: VBoxContainer = $RobotDialogue
-onready var grounding_dialogue: VBoxContainer = $Grounding
-onready var human_dialogue: VBoxContainer = $HumanDialogue
 onready var concept_tree: Tree = $Tree
 onready var send_button: Button = $SendButton
 
@@ -51,9 +42,6 @@ var current_concept: String = "-"
 var human_concepts: PoolStringArray = []
 var human_buttons = []
 
-var grounding_concepts: PoolStringArray = []
-var grounding_buttons = []
-
 var robot_concepts: PoolStringArray = []
 var robot_buttons = []
 
@@ -63,14 +51,9 @@ var languages: Array = [
 ]
 
 func _ready():
-	description_label.text = ""
-	description_label.visible = false
 	send_button.visible = false
 	tasks_button.visible = false
 	help_button.visible = false
-	air_text.visible = false
-	fuel_bar.visible = false
-	fuel_text.visible = false
 	ending.visible = false
 	tutorial_1.visible = false
 	tutorial_2.visible = false
@@ -82,10 +65,7 @@ func _ready():
 		language_container.add_child(b)
 		b.connect("button_up", self, "_on_LanguageButton_button_up", [lang[0]])
 	compi_brain.connect("task_completed", self, "_on_TaskCompleted", [])
-	compi_brain.connect("date_updated", self, "_on_DateUpdated", [])
 	compi_brain.connect("ending_reached", self, "_on_EndingReached", [])
-	compi_brain.connect("air_quality_updated", self, "_on_AirQualityUpdated", [])
-	compi_brain.connect("direction_changed", self, "_on_DirectionChanged", [])
 	compi_brain.connect("words_added", self, "_on_WordsAdded", [])
 
 
@@ -125,8 +105,6 @@ func set_language():
 	tutorial_1_text.text = tr("TUTORIAL_1")
 	tutorial_2_text.text = tr("TUTORIAL_2")
 	tutorial_3_text.text = tr("TUTORIAL_3")
-	_on_AirQualityUpdated()
-	_on_DirectionChanged("forward")
 
 
 func activate_ok_button():
@@ -140,57 +118,11 @@ func show_game():
 	send_button.visible = true
 	tasks_button.visible = true
 	help_button.visible = true
-	air_text.visible = true
-	fuel_bar.visible = true
-	fuel_text.visible = true
-	grounding_dialogue.visible = false
 	concept_tree.connect("cell_selected", self, "_on_Tree_cell_selected", [])
-	# Add buttons to chat
-	robot_dialogue.add_child(HSeparator.new())
-	human_dialogue.add_child(HSeparator.new())
-	grounding_dialogue.add_child(HSeparator.new())
-	for n in range(8):
-		# Robot
-		var b = Button.new()
-		b.text = "-"
-		b.flat = true
-		b.theme = concept_theme
-		b.connect("button_up", self, "_on_RobotButton_button_up", [n])
-		robot_dialogue.add_child(b)
-		robot_dialogue.add_child(HSeparator.new())
-		robot_buttons.append(b)
-		
-		# Human
-		b = Button.new()
-		b.text = "-"
-		b.flat = true
-		b.theme = concept_theme
-		# b.connect("button_up", self, "_on_HumanButton_button_up", [n])
-		human_dialogue.add_child(b)
-		human_dialogue.add_child(HSeparator.new())
-		human_buttons.append(b)
-		human_concepts.append("-")
-		
-		# Grounding
-		b = Button.new()
-		b.flat = true
-		b.theme = concept_theme
-		if n==0:
-			b.text = "#1"
-			b.disabled = true
-		elif n == 4:
-			b.text = "#2"
-			b.disabled = true
-		else:
-			b.text = "-"
-			grounding_buttons.append(b)
-			grounding_concepts.append("-")
-			b.connect("button_up", self, "_on_GroundingButton_button_up", [grounding_buttons.size()-1])
-		grounding_dialogue.add_child(b)
-		grounding_dialogue.add_child(HSeparator.new())
+
 	fill_keyboard()
-	var r = compi_brain.parse([], [])
-	robot_answer(r[0], r[1])
+	var r = compi_brain.parse([])
+	robot_answer(r)
 	set_tutorial("tutorial_1")
 
 
@@ -199,8 +131,6 @@ func fill_keyboard():
 	concept_tree.theme = concept_theme
 	var root_concept = concept_tree.create_item()
 	concept_tree.set_hide_root(true)
-	
-	
 	
 	# var n: int = 0
 	for c in GlobalValues.dictionary:
@@ -213,37 +143,13 @@ var word_number = 0
 
 func _on_Tree_cell_selected():
 	current_concept = concept_tree.get_selected().get_metadata(0)
-	description_label.text = tr("WORD_%s_DES" % current_concept)
 	if !tutorial_completed and tutorial_level == 1 and current_concept != "-":
 		set_tutorial("tutorial_2")
 		tutorial_level = 2
 	# Add world directly
 	if word_number <= 8:
-		_on_HumanButton_button_up(word_number)
+		# _on_HumanButton_button_up(word_number)
 		word_number += 1
-
-
-func _on_HumanButton_button_up(button_id: int):
-	if button_id > 0 and human_concepts[button_id-1] == "-":
-		return
-	human_concepts[button_id] = current_concept
-	var button: Button = human_buttons[button_id]
-	button.text = tr("WORD_%s" % current_concept)
-	if !tutorial_completed and tutorial_level == 2 and button_id == 0:
-		set_tutorial("tutorial_3")
-		tutorial_level = 3
-
-
-func _on_GroundingButton_button_up(button_id: int):
-	if button_id > 0 and grounding_concepts[button_id-1] == "-":
-		return
-	grounding_concepts[button_id] = current_concept
-	var button: Button = grounding_buttons[button_id]
-	button.text = tr("WORD_%s" % current_concept)
-
-
-func _on_RobotButton_button_up(button_id: int):
-	description_label.text = tr("WORD_%s_DES" % robot_concepts[button_id])
 
 
 func _on_Ok_input_event(_viewport, event, _node_idx):
@@ -255,28 +161,17 @@ func _on_Ok_input_event(_viewport, event, _node_idx):
 		show_game()
 
 
-func _process(delta: float):
-	compi_brain.update_date(delta)
-
-
 func _on_TaskCompleted(task_name: String):
 	refresh_tasks()
 
 
-func _on_DateUpdated():
-	fuel_bar.value = compi_brain.get_fuel_amount()
-	date_text.text = compi_brain.get_date_text()
-
-
 func _on_SendButton_button_up():
 	print(human_concepts)
-	print(grounding_concepts)
 	for b in human_buttons:
 		b.text = "-"
-	var r = compi_brain.parse(clean_array(human_concepts), clean_array(grounding_concepts))
-	robot_answer(r[0], r[1])
-	human_concepts = ["-","-","-","-","-","-","-","-"]
-	grounding_concepts = ["-","-","-","-","-","-"]
+	var r = compi_brain.parse(clean_array(human_concepts))
+	robot_answer(r)
+	human_concepts = []
 	word_number = 0
 	if tutorial_level == 3:
 		set_tutorial("")
@@ -299,21 +194,10 @@ func _on_TasksHelp_gui_input(event, m: String):
 				help.visible = false
 
 
-func robot_answer(main: PoolStringArray, grounding: PoolStringArray):
+func robot_answer(main: PoolStringArray):
 	robot_concepts = []
-	for n in range(robot_buttons.size()):
-		if n >= main.size():
-			robot_buttons[n].text = "-"
-			robot_concepts.append("-")
-		else:
-			robot_concepts.append(main[n])
-			robot_buttons[n].text = tr("WORD_%s" % main[n])
-	
-	for n in range(grounding_buttons.size()):
-		if n >= grounding.size():
-			grounding_buttons[n].text = "-"
-		else:
-			grounding_buttons[n].text = tr("WORD_%s" % grounding[n])
+	# robot_buttons[n].text = tr("WORD_%s" % main[n])
+	# grounding_buttons[n].text = tr("WORD_%s" % grounding[n])
 
 
 func clean_array(a: PoolStringArray):
@@ -339,13 +223,6 @@ func refresh_tasks():
 func _on_EndingReached(ending_type: String):
 	ending_text.bbcode_text = tr("ENDING_%s" % ending_type)
 	ending.visible = true
-
-func _on_AirQualityUpdated():
-	var air_quality = compi_brain.get_air_quality()
-	air_text.text = tr("AIR") + " " + tr("AIRQUALITY_%s" % air_quality)
-
-func _on_DirectionChanged(new_direction: String):
-	direction_text.text = tr("DIRECTION_%s" % new_direction)
 
 func _on_WordsAdded():
 	fill_keyboard()
