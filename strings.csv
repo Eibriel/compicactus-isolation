@@ -12,9 +12,30 @@ cuando el planeta es nuevamente habitable.
 La IA Compicactus te asistirá en el camino.
 ¡Buena suerte!"
 HELP_TEXT,This is a chatbot game.,Esto es un chatbot
+TUTORIAL_1,"Select words here
+to form a phrase","Seleccione palabras aquí
+para formar una frase"
+TUTORIAL_2,"Click here
+to enter
+the selected
+word","Click aquí
+para ingresar
+la palabra
+seleccionada"
+TUTORIAL_3,"Click here to send the phrase","Click aquí para enviar la frase"
 TASKS_TITLE,Tasks:,Tareas:
-TASK_START_TIMETRAVEL,Start time travel,Iniciar viaje en el tiempo
+TASK_DONE,Done,Completa
+TASK_ENTER_CAPSULE,Enter the time capsule,Ingresa a la cápsula del tiempo
 TASK_SAY_HI,Say hello to Compicactus,Dile hola a Compicactus
+TASK_START_TIMETRAVEL,Start time travel,Inicia el viaje en el tiempo
+TASK_FIND_GOOD_CONDITIONS,Find a year with good air quality,Encuentra un año con buena calidad de aire
+TASK_STOP_TIMETRAVEL,Stop time travel,Detiene el viaje en el tiempo
+TASK_KEEP_MOVING_FORWARD,Keep moving forward,Sigue hacia adelante
+TASK_SHUT_DOWN_COMPICACTUS,Shut down Compicactus,Apaga a Compicactus
+TASK_GO_BACK_IN_TIME,Go back in time,Vuelve en el tiempo
+TASK_STAY_IN_FUTURE,Stay in the future,Quedate en el futuro
+TASK_SEND_DATA_PAST,Send data to the past,Enviar datos al pasado
+TASK_LEAVE_CAPSULE,Leave capsule,Sal de la cápsula
 TASK_COUNTDOWN,"Countdown: 3, 2, 1","Cuenta regresiva: 3, 2, 1"
 TASK_ARE_YOU_ALIVE,"Is Compicactus alive?","¿Está vivo Compicactus?"
 WORD_-,-,-
@@ -45,7 +66,7 @@ WORD_forward,to future,al futuro
 WORD_forward_DES,To the future,Al futuro
 WORD_backward,to past,al pasado
 WORD_backward_DES,To the past,Al pasado
-WORD_what?,what?how?,qué?cómo?
+WORD_what?,status?,estado?
 WORD_what?_DES,What is?/How is doing?,¿Qué es?/¿Cómo le va?
 WORD_who?,who?,quién?
 WORD_who?_DES,Who?,¿Quién?
@@ -57,6 +78,8 @@ WORD_yes,yes,si
 WORD_yes_DES,Yes,Si
 WORD_no,no,no
 WORD_no_DES,No/Not,No
+WORD_ok,ok,ok
+WORD_ok_DES,Ok,Ok
 WORD_unknown,unknown,desconocido
 WORD_unknown_DES,Its unknown,Es desconocido
 WORD_past,past,pasado
@@ -71,12 +94,16 @@ WORD_happy,happy,feliz
 WORD_happy_DES,To be happy,Ser feliz
 WORD_sad,sad,triste
 WORD_sad_DES,To be sad,Estar triste
-WORD_good,good,bueno
-WORD_good_DES,Good/Fine,Bueno/Bondadoso
+WORD_good,good,bien
+WORD_good_DES,Good/Fine,Bien/Bueno
 WORD_bad,bad,mal
 WORD_bad_DES,Bad/Evil,Mal/Malvado
 WORD_help,help,ayudar
 WORD_help_DES,To help,Ayudar
+WORD_location,location,lugar
+WORD_location_DES,Location or Place,Un lugar
+WORD_purpose,purpose,propósito
+WORD_purpose_DES,Function or Directive,Función o Directiva
 WORD_must,must,deber
 WORD_must_DES,Must,Deber
 WORD_ai,ai,ia
@@ -103,3 +130,19 @@ WORD_8,8,8
 WORD_8_DES,Number 8,Número 8
 WORD_9,9,9
 WORD_9_DES,Number 9,Número 9
+AIR,Air:,Aire:
+AIRQUALITY_toxic,Toxic,Tóxico
+AIRQUALITY_moderated,Moderated,Moderado
+AIRQUALITY_clean,Clean,Limpio
+DIRECTION_forward,To the future,Al futuro
+DIRECTION_backward,To the past,Al pasado
+ENDING_too_far,"You decide humanity is beyond salvation. Why bother?
+
+The capsule move forward in time until is out of fuel. Compicactus shut down forever.
+
+Outside a new world, thousands of years into the future, awaits.","Decides que la humanidad ya no tiene salvación. ¿Para qué preocuparse?
+
+La cápsula viaja hacia adelante en el tiempo hasta quedar sin energía. Compicactus se apaga para siempre.
+
+Afuera un nuevo mundo, miles de años en el futuro, espera."
+ENDING_good_old_times,"",""

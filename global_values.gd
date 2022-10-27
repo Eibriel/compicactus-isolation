@@ -7,6 +7,25 @@ var color_palette = {
 
 var dictionary = [
 	"-",
+	"hello"
+]
+
+var tutorial_a = [
+	"player",
+	"happy",
+	"sad",
+	"good",
+	"bad",
+]
+
+var tutorial_b = [
+	"compicactus",
+	"capsule",
+	"start"
+]
+
+var more = [
+	"-",
 	#"#1",
 	#"#2",
 	"compicactus",
@@ -15,14 +34,15 @@ var dictionary = [
 	# "you",
 	# Questions
 	#"?",
-	"start",
-	"stop",
+	#"start",
+	#"stop",
 	"capsule",
-	"set",
-	"forward",
-	"backward",
+	"purpose",
+	#"set",
+	#"forward",
+	#"backward",
 	"what?",
-	#"hello",
+	"hello",
 	#"who?",
 	# Yes/no
 	#"yes",
