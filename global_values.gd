@@ -15,8 +15,14 @@ var dictionary = [
 	# "you",
 	# Questions
 	#"?",
+	"start",
+	"stop",
+	"capsule",
+	"set",
+	"forward",
+	"backward",
 	"what?",
-	"hello",
+	#"hello",
 	#"who?",
 	# Yes/no
 	#"yes",

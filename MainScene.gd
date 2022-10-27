@@ -28,10 +28,6 @@ onready var help_button: Button = $HelpButton
 onready var help_text: RichTextLabel = $Help/HelpText
 onready var language_container: VBoxContainer = $Languages
 
-var timelapse = false
-var timelapse_time = 0
-var timelapse_completed = false
-
 var quick_start = true
 
 var current_concept: String = "-"
@@ -60,7 +56,8 @@ func _ready():
 		b.text = lang[1]
 		language_container.add_child(b)
 		b.connect("button_up", self, "_on_LanguageButton_button_up", [lang[0]])
-	refresh_tasks()
+	compi_brain.connect("task_completed", self, "_on_TaskCompleted", [])
+	compi_brain.connect("date_updated", self, "_on_DateUpdated", [])
 
 
 func _on_LanguageButton_button_up(lang: String):
@@ -83,11 +80,12 @@ func start_game():
 		ok_button.visible = false
 		intro_text.visible = false
 		logostart.visible = false
-		timelapse_completed = true
+		# timelapse_completed = true
 		compicactus.modulate = Color(1, 1, 1, 1)
 		show_game()
 	compicactus_animation.play("IdleHappy")
 	set_language()
+	refresh_tasks()
 	
 
 func set_language():
@@ -194,44 +192,21 @@ func _on_Ok_input_event(_viewport, event, _node_idx):
 		ok_button.visible = false
 		intro_text.visible = false
 		logostart.visible = false
-		timelapse = true
 		# shader_animation.play("Timelapse")
 		show_game()
 
 
 func _process(delta: float):
-	update_date(delta)
+	compi_brain.update_date(delta)
 
 
-func update_date(delta: float):
-	# var date: String = ""
-	var time_dict = Time.get_datetime_dict_from_system()
-	if timelapse:
-		timelapse_time += delta
-		var exponential_timelapse_time = pow(timelapse_time, timelapse_time/100)
-		time_dict.year += int(exponential_timelapse_time/30/12)
-		time_dict.month += int(exponential_timelapse_time/30) % 12
-		if time_dict.month > 12:
-			time_dict.month -= 12
-		time_dict.day += int(exponential_timelapse_time) % 30
-		if time_dict.day > 30:
-			time_dict.day -= 30
-		# if time_dict.year >= 3022:
-		# 	timelapse_completed = true
-		# 	timelapse = false
-	if timelapse_completed:
-		time_dict.year += 1000
-	# var date_format: String = "{year}/{month}/{day} {hour}:{minute}:{second}"
-	var date_format: String = "{year}/{month}/{day}"
-	date_text.text = date_format.format({
-		"year": time_dict.year,
-		"month": "%02d" % time_dict.month,
-		"day": "%02d" % time_dict.day,
-		"hour": "%02d" % time_dict.hour,
-		"minute": "%02d" % time_dict.minute,
-		"second": "%02d" % time_dict.second,
-	})
-	
+func _on_TaskCompleted(task_name: String):
+	refresh_tasks()
+
+
+func _on_DateUpdated(date: String):
+	date_text.text = date
+
 
 func _on_SendButton_button_up():
 	print(human_concepts)
@@ -240,9 +215,8 @@ func _on_SendButton_button_up():
 		b.text = "-"
 	var r = compi_brain.parse(clean_array(human_concepts), clean_array(grounding_concepts))
 	robot_answer(r[0], r[1])
-	# if clean_array(human_concepts) == PoolStringArray(["you", "who?"]):
-	# 	robot_answer(["me", "ai", "me", "you", "help"], [])
-	# robot_answer(human_concepts, grounding_concepts)
+	human_concepts = ["-","-","-","-","-","-","-","-"]
+	grounding_concepts = ["-","-","-","-","-","-"]
 
 
 func _on_TasksHelpButton_button_up(m: String):
@@ -273,7 +247,6 @@ func robot_answer(main: PoolStringArray, grounding: PoolStringArray):
 			grounding_buttons[n].text = "-"
 		else:
 			grounding_buttons[n].text = tr("WORD_%s" % grounding[n])
-	refresh_tasks()
 
 
 func clean_array(a: PoolStringArray):

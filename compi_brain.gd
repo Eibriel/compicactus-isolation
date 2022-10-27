@@ -1,8 +1,55 @@
 extends Node
 class_name CompiBrain
 
+# The earth is in a nuclear winter
+# you must go to the future to find a time
+# where the planet is habitable again
+# The AI Compicactus will asist you in the journey
+# Good luck!
+
+# Tasks:
+# Enter capsule
+# Start time travel
+# Wait until the conditions are good
+# Stop time travel
+# * Keep moving forward
+# * Shut down Compicactus
+# * Go back to your time
+# * Stay
+# Send date to the past
+# * Leave capsule
+
+# If player stops travel early the date will be wrong
+# Player can keep moving forward, or go back in time
+# - 
+# If player waits for conditions to be good the time machine will fail
+# The player can stay with Compicactus (and future humans), or let Compicactus sacrify itself so the person can go back
+# -
+# If the player keeps going forward the player will find another nuclear winter
+# Compicactus will run out of energy
+
+
+signal task_completed
+signal date_updated
+signal word_added
+
+var timelapse = false
+var timelapse_time = 0
+var timelapse_completed = false
+
+
 var task_list: Dictionary = {
-	"TASK_START_TIMETRAVEL": {"visible": true, "completed": true},
+	"TASK_ENTER_CAPSULE": {"visible": true, "completed": true},
+	"TASK_START_TIMETRAVEL": {"visible": true, "completed": false},
+	"TASK_FIND_GOOD_CONDITIONS": {"visible": true, "completed": false},
+	"TASK_STOP_TIMETRAVEL": {"visible": true, "completed": false},
+	"TASK_KEEP_MOVING_FORWARD": {"visible": true, "completed": false},
+	"TASK_SHUT_DOWN_COMPICACTUS": {"visible": true, "completed": false},
+	"TASK_GO_BACK_IN_TIME": {"visible": true, "completed": false},
+	"TASK_STAY_IN_FUTURE": {"visible": true, "completed": false},
+	"TASK_SEND_DATA_PAST": {"visible": true, "completed": false},
+	"TASK_LEAVE_CAPSULE": {"visible": true, "completed": false},
+	#
 	"TASK_SAY_HI": {"visible": true, "completed": false},
 	"TASK_COUNTDOWN": {"visible": true, "completed": false},
 	"TASK_ARE_YOU_ALIVE": {"visible": true, "completed": false},
@@ -15,10 +62,16 @@ var concept_tree = {
 				"ai": {},
 				"human": {}
 			},
-			"place": {},
-			"device": {}
+			"place": {
+				"device-place": {}
+			},
+			"device": {
+				"device-place": {},
+				"ai": {}
+			}
 		},
-		"number":{}
+		"number":{},
+		"mood":{}
 	}
 }
 
@@ -27,15 +80,40 @@ var long_term = {
 		"is-a": "ai",
 		"location": "time-machine",
 		"introduced": "no",
+		"mood": "happy",
+		"enabled": "true"
+	},
+	"presentworld": {
+		"is-a": "place",
+		"conditions": "bad"
+	},
+	"capsule": {
+		"is-a": "device-place",
+		"fuel-level": 100,
+		"traveling": "no",
+		"direction": "future"
+	},
+	
+	"happy": {
+		"is-a": "mood"
+	},
+	"sad": {
+		"is-a": "mood"
+	},
+	"good": {
+		"is-a": "mood"
+	},
+	"bad": {
+		"is-a": "mood"
 	},
 	"player": {
 		"is-a": "human"
 	},
-	"futureworld": {
+	"pastworld": {
 		"is-a": "place",
 	},
-	"time-machine": {
-		"is-a": "device"
+	"futureworld": {
+		"is-a": "place",
 	},
 	"1": {
 		"is-a": "number"
@@ -49,11 +127,6 @@ var long_term = {
 }
 
 var ai_goals = {
-	#"return_home": {
-	#	"goals": [
-	#		"compicactus.location:home"
-	#	]
-	#},
 	"improve_safety": {
 		"goals": [
 			"compicactus.safety:+"
@@ -85,6 +158,31 @@ var scenes = {
 			"player.trust:+"
 		]
 	},
+	"answer_person_mood": {
+		"match": "*person+*mood",
+		"expected": [
+			"player.trust:+"
+		]
+	},
+	"answer_start_device": {
+		"match": "*device+start",
+		"expected": [
+			"player.trust:+"
+		]
+	},
+	"answer_stop_device": {
+		"match": "*device+stop",
+		"expected": [
+			"player.trust:+"
+		]
+	},
+	"answer_compicactus": {
+		"match": "compicactus",
+		"expected": [
+			"player.trust:+"
+		]
+	},
+	
 	
 	"say_hi": {
 		"requirements": {
@@ -140,28 +238,73 @@ class MyCustomSorter:
 		return false
 
 func parse(question: PoolStringArray, grounding: PoolStringArray):
-	#
-	#var answer = parse_input(question, grounding)
-	#if answer.direct_answer:
-	#	return check_response(answer.answer)
-	#
 	var filtered_scenes = select_scene(question, grounding)
 	var scene_values = select_best_scenes(filtered_scenes)
 	scene_values.sort_custom(MyCustomSorter, "sort")
-	# print (scene_values)
 	var selected_scene = select_one_scene(scene_values)
-	var r = execute_scene(selected_scene.scene, selected_scene.target)
+	var r = execute_scene(selected_scene.scene, selected_scene.target, selected_scene.parameters)
 	return check_response(r)
 
 
-func execute_scene(scene, target):
+func execute_scene(scene, target, parameters):
 	print(scene, ":", target)
 	current_scene = scene
-	if scene == "locate":
+	if scene == "answer_how_is_person":
+		var person = parameters.person
+		if long_term.has(person) and long_term[person].has("mood"):
+			var mood = long_term[person].mood
+			return [[person, mood], []]
+		else:
+			return [[person, "unknown"], []]
+	
+	elif scene == "answer_hello":
+		return [["hello"], []]
+		
+	elif scene == "answer_number":
+		var next_number = {
+			"3": "2",
+			"2": "1",
+			"1": "0"
+		}
+		if next_number.has(parameters.number):
+			return [[next_number[parameters.number]], []]
+		else:
+			return [["100"], []]
+	
+	elif scene == "answer_person_mood":
+		var person = parameters.person
+		var mood = parameters.mood
+		if person != "compicactus":
+			if long_term.has(person):
+				long_term[person].mood = mood
+				return [[person, mood], []]
+		else:
+			return [["compicactus", long_term["compicactus"].mood], []]
+	
+	elif scene == "answer_start_device":
+		var device = parameters.device
+		if device == "capsule":
+			start_timetravel()
+			task_list
+			return [["ok"], []]
+	
+	elif scene == "answer_stop_device":
+		var device = parameters.device
+		if device == "capsule":
+			stop_timetravel()
+			return [["ok"], []]
+	
+	elif scene == "answer_compicactus":
+		return [["what?"], []]
+	
+	# Initiated by AI
+	elif scene == "locate":
 		return [["compicactus", "where?"], []]
+		
 	if scene == "say_hi":
 		long_term.compicactus.introduced = "yes"
 		return [["hello"], []]
+		
 	if scene == "ask_how_are_you":
 		return [["player", "what?"], []]
 	return [["unknown"], []]
@@ -185,11 +328,16 @@ func select_best_scenes(filtered_scenes):
 						value+=1
 		if scenes[fscene[0]].has("match"):
 			value += 5
-		scene_values.append({
+		var info = {
 			"value": value,
 			"scene": fscene[0],
-			"target": fscene[1]
-		})
+			"target": fscene[1],
+			"parameters": {}
+		}
+		if fscene.size() > 2:
+			info.parameters = fscene[2]
+		scene_values.append(info)
+			
 	return scene_values
 		
 func select_scene(question, grounding):
@@ -205,23 +353,30 @@ func select_scene(question, grounding):
 					if satisfied:
 						filtered_scenes.append([scene, ci])
 		elif scenes[scene].has("match"):
-			var to_match = scenes[scene].match
-			var split_match = to_match.split("+")
-			var string_question = question_to_string(question, grounding)
-			if string_question == to_match:
-				filtered_scenes.append([scene, ""])
-			elif question.size() > 0:
-				var is_match = true
-				for n in range(split_match.size()):
-					if split_match[n][0] == "*":
-						if !is_instance_of(split_match[n].substr(1), question[n]):
+			if question.size() > 0:
+				var to_match = scenes[scene].match
+				var split_match = to_match.split("+")
+				var string_question = question_to_string(question, grounding)
+				if string_question == to_match:
+					filtered_scenes.append([scene, ""])
+				else:
+					var is_match = true
+					var parameters = {}
+					for n in range(split_match.size()):
+						if n > question.size()-1:
 							is_match = false
 							break
-					elif split_match[n] != question[n]:
-						is_match = false
-						break
-				if is_match:
-					filtered_scenes.append([scene, ""])
+						if split_match[n][0] == "*":
+							if !is_instance_of(split_match[n].substr(1), question[n]):
+								is_match = false
+								break
+							else:
+								parameters[split_match[n].substr(1)] = question[n]
+						elif split_match[n] != question[n]:
+							is_match = false
+							break
+					if is_match:
+						filtered_scenes.append([scene, "", parameters])
 		else:
 			var satisfied = satisfy_requirements(scene)
 			if satisfied:
@@ -261,7 +416,7 @@ func satisfy_requirements(scene: String, _instance: String = ""):
 
 
 func get_all_concepts_child_of(concept: String, start_point: Dictionary, is_child: bool = false):
-	var concept_array = []
+	var concept_array = [concept]
 	for c in start_point:
 		var ic = is_child
 		if c == concept:
@@ -299,100 +454,56 @@ func check_response(response):
 	return response
 
 
-# Parse input
 
-var answers = {
-	"compicactus+what?": {"answer": [["compicactus","good"], []]},
-	"hello": {"answer": [["hello"], []], "complete_task": "TASK_SAY_HI"},
-	"3": {"answer": [["2"], []]},
-	"2": {"answer": [["1"], []]},
-	"1": {"answer": [["0"], []]},
-	
-	"player+good": {"set": {"player":{"mood":"good"}}}
-}
-
-func parse_input(question, grounding):
-	var string_question = question.join("+")
-	var result = {
-		"direct_answer": false,
-		"answer": []
-	}	
-	if answers.has(string_question):
-		if answers[string_question].has("answer"):
-			result.direct_answer = true
-			result.answer = answers[string_question].answer
-		if answers[string_question].has("set"):
-			for instance in answers[string_question].set:
-				for property in answers[string_question].set[instance]:
-					long_term[instance][property] = answers[string_question].set[instance][property]
-		if answers[string_question].has("complete_task"):
-			task_list[answers[string_question].complete_task].completed = true
-	return result
+func set_task_completed(task_name: String):
+	if !task_list[task_name].completed:
+		emit_signal("task_completed", task_name)
+	task_list[task_name].completed = true
 
 
 func get_task_list():
 	return task_list
 
 
-# OLD
-
-func is_empty_question(question: PoolStringArray):
-	return question.size() == 0
+#func _process(delta):
+#	update_date(delta)
 
 
-func is_who_question(question):
-	return question.size() > 1 and question[question.size()-1] == "who?"
+func start_timetravel():
+	timelapse = true
 
 
-func get_who_target(question):
-	var target_word = question[question.size()-2]
-	
-	var mapping = {
-		"ai": "ai",
-		"you": "ai",
-		"human": "human",
-		"me": "human"
-	}
-	
-	if mapping.has(target_word):
-		return mapping[target_word]
-	else:
-		return target_word
+func stop_timetravel():
+	timelapse = false
 
 
-func short_description(target):
-	var answer:PoolStringArray = []
-	var next_grounding: PoolStringArray = []
-	
-	if target == "ai":
-		answer.append("me")
-	elif target == "human":
-		answer.append("you")
-	else:
-		answer.append(target)
-		
-	if in_longterm(target):
-		var prop = long_term[target]["is-a"][0]
-		answer.append(prop)
-	else:
-		answer.append("unknown")
-		
-	return check_response([
-		answer,
-		next_grounding
-	])
-
-
-func in_longterm(target):
-	return long_term.has(target)
-
-
-func should_ignore():
-	return true
-
-
-func ask_question():
-	return check_response([
-		["you", "who?"],
-		[]
-	])
+func update_date(delta: float):
+	# var date: String = ""
+	var time_dict = Time.get_datetime_dict_from_system()
+	if timelapse:
+		timelapse_time += delta
+	# var exponential_timelapse_time = pow(timelapse_time, timelapse_time/10)
+	var exponential_timelapse_time = timelapse_time*10000
+	time_dict.year += int(exponential_timelapse_time/30/12)
+	time_dict.month += int(exponential_timelapse_time/30) % 12
+	if time_dict.month > 12:
+		time_dict.month -= 12
+	time_dict.day += int(exponential_timelapse_time) % 30
+	if time_dict.day > 30:
+		time_dict.day -= 30
+	# if time_dict.year >= 3022:
+	# 	timelapse_completed = true
+	# 	timelapse = false
+	#if timelapse_completed:
+	#	time_dict.year += 1000
+	# var date_format: String = "{year}/{month}/{day} {hour}:{minute}:{second}"
+	var date_format: String = "{year}/{month}/{day}"
+	var date_text = date_format.format({
+		"year": time_dict.year,
+		"month": "%02d" % time_dict.month,
+		"day": "%02d" % time_dict.day,
+		"hour": "%02d" % time_dict.hour,
+		"minute": "%02d" % time_dict.minute,
+		"second": "%02d" % time_dict.second,
+	})
+	emit_signal("date_updated", date_text)

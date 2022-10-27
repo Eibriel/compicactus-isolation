@@ -2,11 +2,15 @@ id,en,es
 NONE,,
 TASKS,Tasks,Tareas
 SEND,Send,Enviar
-INTRO_TEXT,"Click OK to send the AI to the future and back.
-
-Don't worry, AIs can't feel pain.","Haz click en OK para enviar, y traer, a la IA al futuro.
-
-No te preocupes, lAs Ias no pueden sentir dolor."
+INTRO_TEXT,"The earth is covered by a nuclear winter.
+You must go to the future and find a time
+when the planet is habitable again.
+The AI Compicactus will assist you in the way.
+Good luck!","La tierra está cubierta por un invierno nuclear.
+Tu debes viajar al futuro y encontrar un tiempo
+cuando el planeta es nuevamente habitable.
+La IA Compicactus te asistirá en el camino.
+¡Buena suerte!"
 HELP_TEXT,This is a chatbot game.,Esto es un chatbot
 TASKS_TITLE,Tasks:,Tareas:
 TASK_START_TIMETRAVEL,Start time travel,Iniciar viaje en el tiempo
@@ -29,8 +33,20 @@ WORD_player,player,jugador
 WORD_player_DES,"You, player","Tu, jugador"
 WORD_?,?,?
 WORD_?_DES,Question,Pregunta
-WORD_what?,what?,qué?
-WORD_what?_DES,What?/How?,¿Qué?/¿Cómo?
+WORD_start,start,iniciar
+WORD_start_DES,Start something,Iniciar algo
+WORD_stop,stop,detener
+WORD_stop_DES,Stop something,Detener algo
+WORD_capsule,capsule,cápsula
+WORD_capsule_DES, This time machine,Ésta máquina del tiempo
+WORD_set,set,setear
+WORD_set_DES,Set value,Setear un valor
+WORD_forward,to future,al futuro
+WORD_forward_DES,To the future,Al futuro
+WORD_backward,to past,al pasado
+WORD_backward_DES,To the past,Al pasado
+WORD_what?,what?how?,qué?cómo?
+WORD_what?_DES,What is?/How is doing?,¿Qué es?/¿Cómo le va?
 WORD_who?,who?,quién?
 WORD_who?_DES,Who?,¿Quién?
 WORD_where?,where?,donde?
