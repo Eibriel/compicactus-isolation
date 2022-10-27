@@ -64,6 +64,7 @@ var languages: Array = [
 
 func _ready():
 	description_label.text = ""
+	description_label.visible = false
 	send_button.visible = false
 	tasks_button.visible = false
 	help_button.visible = false
@@ -71,6 +72,9 @@ func _ready():
 	fuel_bar.visible = false
 	fuel_text.visible = false
 	ending.visible = false
+	tutorial_1.visible = false
+	tutorial_2.visible = false
+	tutorial_3.visible = false
 	for lang in languages:
 		var b = Button.new()
 		b.theme = concept_theme
@@ -111,7 +115,6 @@ func start_game():
 	compicactus_animation.play("IdleHappy")
 	set_language()
 	refresh_tasks()
-	set_tutorial("tutorial_1")
 	
 
 func set_language():
@@ -141,6 +144,7 @@ func show_game():
 	fuel_bar.visible = true
 	fuel_text.visible = true
 	grounding_dialogue.visible = false
+	concept_tree.connect("cell_selected", self, "_on_Tree_cell_selected", [])
 	# Add buttons to chat
 	robot_dialogue.add_child(HSeparator.new())
 	human_dialogue.add_child(HSeparator.new())
@@ -161,7 +165,7 @@ func show_game():
 		b.text = "-"
 		b.flat = true
 		b.theme = concept_theme
-		b.connect("button_up", self, "_on_HumanButton_button_up", [n])
+		# b.connect("button_up", self, "_on_HumanButton_button_up", [n])
 		human_dialogue.add_child(b)
 		human_dialogue.add_child(HSeparator.new())
 		human_buttons.append(b)
@@ -187,6 +191,7 @@ func show_game():
 	fill_keyboard()
 	var r = compi_brain.parse([], [])
 	robot_answer(r[0], r[1])
+	set_tutorial("tutorial_1")
 
 
 func fill_keyboard():
@@ -195,7 +200,7 @@ func fill_keyboard():
 	var root_concept = concept_tree.create_item()
 	concept_tree.set_hide_root(true)
 	
-	concept_tree.connect("cell_selected", self, "_on_Tree_cell_selected", [])
+	
 	
 	# var n: int = 0
 	for c in GlobalValues.dictionary:
@@ -204,12 +209,18 @@ func fill_keyboard():
 		concept_item.set_metadata(0, c)
 
 
+var word_number = 0
+
 func _on_Tree_cell_selected():
 	current_concept = concept_tree.get_selected().get_metadata(0)
 	description_label.text = tr("WORD_%s_DES" % current_concept)
 	if !tutorial_completed and tutorial_level == 1 and current_concept != "-":
 		set_tutorial("tutorial_2")
 		tutorial_level = 2
+	# Add world directly
+	if word_number <= 8:
+		_on_HumanButton_button_up(word_number)
+		word_number += 1
 
 
 func _on_HumanButton_button_up(button_id: int):
@@ -266,6 +277,7 @@ func _on_SendButton_button_up():
 	robot_answer(r[0], r[1])
 	human_concepts = ["-","-","-","-","-","-","-","-"]
 	grounding_concepts = ["-","-","-","-","-","-"]
+	word_number = 0
 	if tutorial_level == 3:
 		set_tutorial("")
 		tutorial_completed = true
