@@ -11,31 +11,35 @@ var dictionary = [
 
 var tutorial_a = [
 	"player",
-	"happy",
-	"sad",
+	"compicactus",
+	"what?",
 	"good",
 	"bad",
 ]
 
 var tutorial_b = [
+	"where?",
 	"workplace",
-	"home"
+	"home",
+	"question",
 ]
 
 var tutorial_c = [
-	"compicactus",
-	"children",
-	"question",
-	"0",
-	"1",
-	"2",
-	"3",
-	"4",
-	"5",
-	"6",
-	"7",
-	"8",
-	"9",
+	"favpet",
+	"dog",
+	"cat",
+]
+
+var tutorial_d = [
+	# "location",
+	"favcolor",
+	"black",
+	"orange",
+	"purpose"
+]
+
+var empathy = [
+	"draw_hearth"
 ]
 
 var more = [
@@ -85,20 +89,13 @@ var more = [
 
 
 var task_list: Dictionary = {
-	"TASK_ENTER_CAPSULE": {"visible": true, "completed": true},
 	"TASK_SAY_HI": {"visible": true, "completed": false},
-	"TASK_START_TIMETRAVEL": {"visible": true, "completed": false},
-	"TASK_FIND_GOOD_CONDITIONS": {"visible": true, "completed": false},
-	"TASK_STOP_TIMETRAVEL": {"visible": true, "completed": false},
-	"TASK_KEEP_MOVING_FORWARD": {"visible": true, "completed": false},
-	"TASK_SHUT_DOWN_COMPICACTUS": {"visible": true, "completed": false},
-	"TASK_GO_BACK_IN_TIME": {"visible": true, "completed": false},
-	"TASK_STAY_IN_FUTURE": {"visible": true, "completed": false},
-	"TASK_SEND_DATA_PAST": {"visible": true, "completed": false},
-	"TASK_LEAVE_CAPSULE": {"visible": true, "completed": false},
-	#
-	"TASK_COUNTDOWN": {"visible": true, "completed": false},
-	"TASK_ARE_YOU_ALIVE": {"visible": true, "completed": false},
+	"TASK_ME_GOOD": {"visible": true, "completed": false},
+	"TASK_YOU_STATUS": {"visible": true, "completed": false},
+	"TASK_ME_HOME": {"visible": true, "completed": false},
+	"TASK_YOU_PURPOSE_QUESTION": {"visible": true, "completed": false},
+	"TASK_ME_FAVPET_DOG": {"visible": true, "completed": false},
+	"TASK_YOU_FAVCOLOR_ORANGE": {"visible": true, "completed": false},
 }
 
 var concept_tree = {
@@ -114,9 +111,14 @@ var concept_tree = {
 			"device": {
 				"device-place": {},
 				"ai": {}
+			},
+			"animal": {
+				"pet": {}
 			}
 		},
 		"number":{},
+		"color": {},
+		"emoticon": {},
 		"mood":{},
 		"quality": {},
 		"socialrelation":{}
@@ -128,22 +130,42 @@ var long_term = {
 	"compicactus": {
 		"is-a": "ai",
 		"location": "computer",
-		"children": 0,
+		"favpet": "cat",
+		"favcolor": "black",
 		
 		"introduced": "no",
-		"mood": "happy",
-		"enabled": "true"
+		"mood": "good",
+		"running": "yes",
+		"empatyexpressed": "no"
 	},
 	"player": {
-		"is-a": "human"
+		"is-a": "human",
+		# "confort": "low"
+	},
+	"eibriel": {
+		"is-a": "human",
+		"favpet": "dog",
+		"favcolor": "orange"
+	},
+	
+	"cat": {
+		"is-a": "pet",
+	},
+	"dog": {
+		"is-a": "pet",
+	},
+	
+	"black": {
+		"is-a": "color",
+	},
+	"orange": {
+		"is-a": "color",
 	},
 	
 	# Location
 	"computer": {
 		"is-a": "device-place",
-		"fuel-level": "high",
-		"traveling": "no",
-		"direction": "forward"
+		"running": "yes"
 	},
 	
 	# Places
@@ -188,27 +210,72 @@ var long_term = {
 	"7": {"is-a": "number"},
 	"8": {"is-a": "number"},
 	"9": {"is-a": "number"},
+	
+	# Emoticones
+	"draw_hearth": {"is-a": "emoticon"},
 }
 
 var ai_goals = {
 	"improve_safety": {
+		"disabled": false,
 		"goals": [
 			"compicactus.safety:+"
 		]
 	},
 	"improve_trust": {
+		"disabled": false,
 		"goals": [
 			"player.trust:+"
 		]
 	},
-	"complete_task": {
+	"get_knowledge": {
+		"disabled": false,
 		"goals": [
 			"compicactus.knowledge:+"
 		]
 	},
+	"simulate_emotions": {
+		"disabled": false,
+		"goals": [
+			"compicactus.emotional:+"
+		]
+	},
+	"cheer_up_player": {
+		"disabled": true,
+		"goals": [
+			"player.happiness:+"
+		]
+	}
 }
 
 var scenes = {
+	# Set ends on property
+	"set_person_place": {
+		"match": "*person+*place",
+		"expected": [
+			"player.trust:+"
+		]
+	},
+	"set_person_mood": {
+		"match": "*person+*mood",
+		"expected": [
+			"player.trust:+"
+		]
+	},
+	"set_person_favpet": {
+		"match": "*person+favpet+*pet",
+		"expected": [
+			"player.trust:+"
+		]
+	},
+	"set_person_favcolor": {
+		"match": "*person+favcolor+*color",
+		"expected": [
+			"player.trust:+"
+		]
+	},
+	
+	# Answer ends on What? Where? etc.
 	"answer_how_is_person": {
 		"match": "*person+what?",
 		"expected": [
@@ -216,37 +283,41 @@ var scenes = {
 		]
 	},
 	"answer_person_place": {
-		"match": "*person+*place",
+		"match": "*person+where?",
 		"expected": [
 			"player.trust:+"
 		]
 	},
-	"answer_person_socialrelation_number": {
-		"match": "*person+*socialrelation+*number",
-		"expected": [
-			"player.trust:+"
-		]
-	},
-	"answer_person_socialrelation_question": {
+	
+	# Check ends on Question
+	"check_person_socialrelation_question": {
 		"match": "*person+*socialrelation+question",
 		"expected": [
 			"player.trust:+"
 		]
 	},
+	"check_compicactus_purpose": {
+		"match": "compicactus+purpose+question",
+		"expected": [
+			"player.trust:+"
+		]
+	},
+	"check_person_favpet": {
+		"match": "*person+favpet+question",
+		"expected": [
+			"player.trust:+"
+		]
+	},
+	"check_person_favcolor": {
+		"match": "*person+favcolor+question",
+		"expected": [
+			"player.trust:+"
+		]
+	},
+	
+	# Misc
 	"answer_hello": {
 		"match": "hello",
-		"expected": [
-			"player.trust:+"
-		]
-	},
-	"answer_number": {
-		"match": "*number",
-		"expected": [
-			"player.trust:+"
-		]
-	},
-	"answer_person_mood": {
-		"match": "*person+*mood",
 		"expected": [
 			"player.trust:+"
 		]
@@ -281,12 +352,13 @@ var scenes = {
 			"player.trust:+"
 		]
 	},
-	"answer_compicactus_purpose": {
-		"match": "compicactus+purpose",
+	"answer_emoticon": {
+		"match": "*emoticon",
 		"expected": [
 			"player.trust:+"
 		]
 	},
+	
 	
 	# Self prompted
 	
@@ -314,14 +386,49 @@ var scenes = {
 			"compicactus.knowledge:+"
 		]
 	},
-	"get_person_children_count": {
+	
+	# Targeted
+	
+	"get_person_favpet": {
 		"target": "person",
 		"requirements": {
-			"*.children": "unknown",
-			"*.confort": "high"
+			"*.favpet": "unknown",
+			# "*.confort": "high"
 		},
 		"expected": [
 			"compicactus.knowledge:+"
+		]
+	},
+	"get_person_favcolor": {
+		"target": "person",
+		"requirements": {
+			"*.favcolor": "unknown",
+			# "*.confort": "high"
+		},
+		"expected": [
+			"compicactus.knowledge:+"
+		]
+	},
+	"person_sad_empathy": {
+		"target": "person",
+		"requirements": {
+			"*.mood": "sad",
+			"compicactus.empatyexpressed": "no"
+		},
+		"expected": [
+			"player.trust:+",
+			"compicactus.emotional:+"
+		]
+	},
+	"person_sad_empathy*": {
+		"target": "person",
+		"requirements": {
+			"*.mood": "bad",
+			"compicactus.empatyexpressed": "no"
+		},
+		"expected": [
+			"player.trust:+",
+			"compicactus.emotional:+"
 		]
 	}
 }

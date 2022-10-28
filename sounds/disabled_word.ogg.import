@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/disabled_word.ogg-371b2550e3e724174b0bce3a029bb1e4.oggstr"
+
+[deps]
+
+source_file="res://sounds/disabled_word.ogg"
+dest_files=[ "res://.import/disabled_word.ogg-371b2550e3e724174b0bce3a029bb1e4.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

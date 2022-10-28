@@ -3,7 +3,7 @@
 [ext_resource path="res://fonts/Roboto-Medium.ttf" type="DynamicFontData" id=1]
 
 [sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.6, 0.6, 0.6, 0.0313726 )
+bg_color = Color( 0.6, 0.6, 0.6, 0.121569 )
 corner_detail = 20
 
 [sub_resource type="DynamicFont" id=1]

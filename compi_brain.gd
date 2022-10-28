@@ -3,19 +3,54 @@ class_name CompiBrain
 
 #
 signal task_completed
-# signal word_added
 signal ending_reached
 signal words_added
+signal score_updated
 
 
 var current_scene = ""
 var current_target = ""
 
+var followup_needed = false
+var expected_scene = ""
+
+var date_status = {
+	"compicactus": [],  # human asked about AI
+	"player": [],  # AI asked about human
+	"correct": [],  # Human remembered fact correctly
+	"incorrect": []
+}
+
 # parametrizar deseos de la AI
-
 # crear escenas con resultados esperables
-
 # calcular que escena ejecutar dado el estado para maximizar el deseo de la AI
+
+
+func new_info(subject: String, about: String):
+	if date_status.has(subject):
+		if !date_status[subject].has(about):
+			date_status[subject].append(about)
+	print(date_status)
+
+var times_added = 0
+func add_more_words():
+	match times_added:
+		0:
+			add_words(GlobalValues.tutorial_a)
+		1:
+			add_words(GlobalValues.tutorial_b)
+		2:
+			add_words(GlobalValues.tutorial_c)
+		3:
+			add_words(GlobalValues.tutorial_d)
+	times_added += 1
+
+func update_score():
+	var score = {
+		"balance": date_status.compicactus.size() - date_status.player.size(),
+		"hearts": (date_status.correct.size()*2) - date_status.incorrect.size()
+	}
+	emit_signal("score_updated", score)
 
 class MyCustomSorter:
 	static func sort(a, b):
@@ -29,32 +64,123 @@ func parse(question: PoolStringArray):
 	scene_values.sort_custom(MyCustomSorter, "sort")
 	if scene_values.size() == 0:
 		print("no scene to select")
-		return check_response(["unknown"])
+		return check_response(["silence"])
 	var selected_scene = select_one_scene(scene_values)
 	var r = execute_scene(selected_scene.scene, selected_scene.target, selected_scene.parameters)
+	update_score()
 	return check_response(r)
 
+func set_instance_property(instance, property, value):
+	if GlobalValues.long_term.has(instance):
+		GlobalValues.long_term[instance][property] = value
+		return true
+	return false
+
+func set_property(instance, property, value):
+	if instance == "player":
+		set_instance_property(instance, property, value)
+		return [instance, value]
+	else:
+		if GlobalValues.long_term.has(instance) and GlobalValues.long_term[instance].has(property):
+			return [instance, GlobalValues.long_term[instance][property]]
+	return [instance, property, "unknown"]
+
+func is_property_correct(instance, property, value):
+	if instance != "compicactus":
+		return
+	if !GlobalValues.long_term.has(instance) or !GlobalValues.long_term[instance].has(property):
+		return
+	if value == GlobalValues.long_term[instance][property]:
+		new_info("correct", property)
+	else:
+		new_info("incorrect", property)
+	print(date_status)
 
 func execute_scene(scene, target, parameters):
 	print(scene, ":", target)
 	current_scene = scene
+	followup_needed = false
+	expected_scene = ""
 	
 	match scene:
+		# Set
+		"set_person_mood":
+			followup_needed = true
+			var person = parameters.person
+			var mood = parameters.mood
+			new_info(person, "mood")
+			is_property_correct(person, "mood", mood)
+			return set_property(person, "mood", mood)
+
+		"set_person_place":
+			followup_needed = true
+			var person = parameters.person
+			var location = parameters.place
+			new_info(person, "place")
+			is_property_correct(person, "location", location)
+			return set_property(person, "location", location)
+		
+		"set_person_favpet":
+			followup_needed = true
+			var person = parameters.person
+			var pet = parameters.pet
+			new_info(person, "favpet")
+			is_property_correct(person, "favpet", pet)
+			return set_property(person, "favpet", pet)
+		
+		"set_person_favcolor":
+			followup_needed = true
+			var person = parameters.person
+			var color = parameters.color
+			new_info(person, "favcolor")
+			is_property_correct(person, "favcolor", color)
+			return set_property(person, "favcolor", color)
+		
+		# Answer
 		"answer_how_is_person":
 			var person = parameters.person
+			new_info(person, "mood")
 			if GlobalValues.long_term.has(person) and GlobalValues.long_term[person].has("mood"):
 				var mood = GlobalValues.long_term[person].mood
 				return [person, mood]
 			else:
-				return [person, "unknown"]
+				return [person, "what?", "unknown"]
+		
+		"answer_person_place":
+			var person = parameters.person
+			new_info(person, "place")
+			if GlobalValues.long_term.has(person) and GlobalValues.long_term[person].has("location"):
+				var place = GlobalValues.long_term[person].location
+				return [person, place, "location"]
+			return [person, "where?", "unknown"]
+
+		# Check
+		"check_person_favpet":
+			var person = parameters.person
+			if GlobalValues.long_term.has(person) and GlobalValues.long_term[person].has("favpet"):
+				var favpet = GlobalValues.long_term[person].favpet
+				return [person, favpet, "favpet"]
+			return [person, "favpet", "unknown"]
 	
+		"check_person_favcolor":
+			var person = parameters.person
+			if GlobalValues.long_term.has(person) and GlobalValues.long_term[person].has("favcolor"):
+				var favcolor = GlobalValues.long_term[person].favcolor
+				return [person, favcolor, "favcolor"]
+			return [person, "favcolor", "unknown"]
+	
+		"check_compicactus_purpose":
+			followup_needed = true
+			return ["compicactus", "player", "help"]
+	
+		# Misc
 		"answer_hello":
 			set_task_completed("TASK_SAY_HI")
 			if GlobalValues.long_term.compicactus.introduced == "yes" and !GlobalValues.long_term.player.has("mood"):
-				return ["hello"]
+				return ["player", "what?"]
 			GlobalValues.long_term.compicactus.introduced = "yes"
-			add_words(GlobalValues.tutorial_a)
-			return ["player", "what?"]
+			followup_needed = true
+			return ["hello"]
 		
 		"answer_number":
 			var next_number = {
@@ -66,28 +192,9 @@ func execute_scene(scene, target, parameters):
 				return [next_number[parameters.number]]
 			else:
 				return ["100"]
-	
-		"answer_person_mood":
-			var person = parameters.person
-			var mood = parameters.mood
-			if person != "compicactus":
-				if GlobalValues.long_term.has(person):
-					GlobalValues.long_term[person].mood = mood
-					return [person, mood]
-			else:
-				return ["compicactus", GlobalValues.long_term["compicactus"].mood]
-	
-		"answer_person_place":
-			var person = parameters.person
-			var place = parameters.place
-			if person != "compicactus":
-				if GlobalValues.long_term.has(person):
-					GlobalValues.long_term[person].location = place
-					return [person, place]
-			else:
-				return ["compicactus", GlobalValues.long_term["compicactus"].location]
-	
+			
 		"answer_person_socialrelation_number":
+			followup_needed = true
 			var person = parameters.person
 			var socialrelation = parameters.socialrelation
 			var number = parameters.number
@@ -97,16 +204,6 @@ func execute_scene(scene, target, parameters):
 					return [person, socialrelation, number]
 			else:
 				return ["compicactus", socialrelation, GlobalValues.long_term["compicactus"][socialrelation]]
-	
-		"answer_person_socialrelation_question":
-			var person = parameters.person
-			var socialrelation = parameters.socialrelation
-			if GlobalValues.long_term.has(person):
-				if GlobalValues.long_term[person].has(socialrelation):
-					var value = GlobalValues.long_term[person][socialrelation]
-					return [person, socialrelation, value]
-			else:
-				return [person, socialrelation, "unknown"]
 					
 		"answer_start_device":
 			var device = parameters.device
@@ -122,38 +219,68 @@ func execute_scene(scene, target, parameters):
 				return ["ok", "capsule", "stop"]
 	
 		"answer_compicactus":
+			followup_needed = true
 			return ["me", "compicactus"]
 	
 		"answer_player":
+			followup_needed = true
 			return ["you", "player"]
-	
-		"answer_compicactus_purpose":
-			return ["compicactus", "player", "help"]
-	
-	
+		
+		"answer_emoticon":
+			followup_needed = true
+			var emoticon = parameters.emoticon
+			if emoticon == "draw_hearth":
+				return ["draw_hearth"]
+			return ["draw_hearth"]
+
 		# Initiated by AI
-		#"ask_to_time_travel":
-		#	add_words(GlobalValues.tutorial_b)
-		#	return ["compicactus", "capsule", "start", "?"]
-	
 		"locate":
-			add_words(GlobalValues.tutorial_b)
 			return ["player", "where?"]
 		
 		"say_hi":
-			# long_term.compicactus.introduced = "yes"
 			return ["hello"]
 		
 		"ask_how_are_you":
 			return ["player", "what?"]
 		
 		"get_person_children_count":
-			add_words(GlobalValues.tutorial_c)
-			return ["player", "children", "how many?"]
-	return ["unknown"]
+			return [target, "children", "how many?"]
+		
+		"get_person_favpet":
+			return [target, "favpet", "question"]
+		
+		"get_person_favcolor":
+			return [target, "favcolor", "question"]
+		
+		"person_sad_empathy", "person_sad_empathy*":
+			add_words(GlobalValues.empathy)
+			GlobalValues.long_term.compicactus.empatyexpressed = "yes"
+			GlobalValues.ai_goals.cheer_up_player.disabled = false
+			return ["compicactus","empathize","player","draw_hearth"]
+	
+	print("unknown scene: ", scene)
+	return ["silence"]
+
+
+var late_scenes = []
 
 func select_one_scene(scenes):
+	print("#")
+	var new_selection = []
+	for s in scenes:
+		print(s.scene, " ", s.value)
+		if not s.scene in late_scenes:
+			new_selection.append(s)
+	#
 	return scenes[0]
+	#
+	print(late_scenes)
+	if new_selection.size() == 0:
+		late_scenes = []
+		return scenes[0]
+	else:
+		late_scenes.append(new_selection[0].scene)
+		return new_selection[0]
 
 
 func select_best_scenes(filtered_scenes):
@@ -161,14 +288,18 @@ func select_best_scenes(filtered_scenes):
 	for fscene in filtered_scenes:
 		var value = 0
 		for goal in GlobalValues.ai_goals:
+			if GlobalValues.ai_goals[goal].disabled:
+				continue
 			for g in GlobalValues.ai_goals[goal].goals:
-				if fscene[1] == "":
-					if GlobalValues.scenes[fscene[0]].expected.has(g):
+				if GlobalValues.scenes[fscene[0]].expected.has(g):
 						value+=1
-				else:
-					var wildcard_goal = "*.%s" % g.split(".")[1]
-					if GlobalValues.scenes[fscene[0]].expected.has(wildcard_goal):
-						value+=1
+				#if fscene[1] == "":
+				#	if GlobalValues.scenes[fscene[0]].expected.has(g):
+				#		value+=1
+				#else:
+				#	var wildcard_goal = "*.%s" % g.split(".")[1]
+				#	if GlobalValues.scenes[fscene[0]].expected.has(wildcard_goal):
+				#		value+=1
 		if GlobalValues.scenes[fscene[0]].has("match"):
 			value += 5
 		var info = {
@@ -250,7 +381,7 @@ func satisfy_requirements(scene: String, _instance: String = ""):
 	var instance: String
 	var property: String
 	for requirement in GlobalValues.scenes[scene].requirements:
-		if _instance == "":
+		if _instance == "" or requirement.split(".")[0][0] != "*":
 			instance = requirement.split(".")[0]
 		else:
 			instance = _instance
@@ -294,10 +425,14 @@ func check_requirement_instance(instance, property, value):
 	if value == "unknown":
 		if GlobalValues.long_term[instance].has(property):
 			return false
+		if not GlobalValues.long_term[instance].has(property):
+			return true
 	if value == "!unknown":
 		if not GlobalValues.long_term[instance].has(property):
 			return false
 	if GlobalValues.long_term[instance].has(property) and GlobalValues.long_term[instance][property] != value:
+		return false
+	if not GlobalValues.long_term[instance].has(property):
 		return false
 	return true
 
@@ -336,7 +471,12 @@ func add_words(words: Array):
 func get_useful_words(words):
 	var result = []
 	var position = words.size()
-	for scene in get_scenes_matching_with(words):
+	var look_into = []
+	if expected_scene != "":
+		look_into = [expected_scene]
+	else:
+		look_into = get_scenes_matching_with(words)	
+	for scene in look_into:
 		var split_match = GlobalValues.scenes[scene].match.split("+")
 		if split_match.size() <= position:
 			continue
@@ -375,3 +515,10 @@ func get_scenes_matching_with(words):
 			if is_match:
 				result.append(scene)
 	return result
+
+
+func followup():
+	if followup_needed:
+		return parse([])
+	else:
+		return []

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/New Composition 611.mp3-49332c8f1d4e3d7ca9aa3801b7fe10f8.mp3str"
+
+[deps]
+
+source_file="res://music/New Composition 611.mp3"
+dest_files=[ "res://.import/New Composition 611.mp3-49332c8f1d4e3d7ca9aa3801b7fe10f8.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
