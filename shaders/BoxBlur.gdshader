@@ -1,7 +1,8 @@
 shader_type canvas_item;
 
 uniform float multiplier = 1.0;
-
+uniform vec4 colorizer : hint_color;
+uniform float color_multiplier = 1.0;
 uniform bool blur = false;
 
 void fragment() {
@@ -43,7 +44,8 @@ void fragment() {
 	
 	col = vec3(grey, grey, grey);
 	
-	col *= vec3(1, 2, 1);
+	//col *= vec3(1, 1.3, 1);
+	col *= colorizer.rgb * color_multiplier;
 	
     COLOR.xyz = col;
 }

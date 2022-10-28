@@ -36,7 +36,7 @@ onready var tutorial_2_text: Label = $Tutorial/Tutorial2/TutorialText2
 onready var tutorial_3: Node2D = $Tutorial/Tutorial3
 onready var tutorial_3_text: Label = $Tutorial/Tutorial3/TutorialText3
 
-var quick_start = false
+var quick_start = true
 
 var tutorial_completed: bool = false
 var tutorial_level: int = 1
@@ -44,6 +44,10 @@ var tutorial_level: int = 1
 var human_concepts: PoolStringArray = []
 var robot_concepts: PoolStringArray = []
 var robot_concepts_b: PoolStringArray = []
+
+var show_text_time = 0
+var showing_text = false
+var show_text_chars = 0
 
 var languages: Array = [
 	["en", "English"],
@@ -118,6 +122,11 @@ func activate_ok_button():
 	tasks_button.visible = true
 	help_button.visible = true
 
+var prerecorded = [
+	["hello"],
+	["player", "happy"],
+	["player", "home"]
+]
 
 func show_game():
 	send_button.visible = true
@@ -131,6 +140,9 @@ func show_game():
 	fill_keyboard()
 	robot_concepts = compi_brain.parse([])
 	robot_answer()
+	for pr in prerecorded:
+		robot_concepts = compi_brain.parse(pr)
+		robot_answer()
 	set_tutorial("tutorial_1")
 
 
@@ -156,6 +168,7 @@ func _on_Tree_cell_selected():
 	message_text.bbcode_text = ""
 	for c in human_concepts:
 		message_text.bbcode_text += tr("WORD_%s" % c) + " "
+	filter_tree()
 
 
 func _on_Ok_button_up():
@@ -176,11 +189,23 @@ func _on_SendButton_button_up():
 	add_to_chat(human_concepts, "Human")
 	message_text.bbcode_text = ""
 	human_concepts = []
-	message_animation.play("Processing1")
-	
-	#if tutorial_level == 3:
-	#	set_tutorial("")
-	#	tutorial_completed = true
+	filter_tree()
+	robot_answer()
+
+
+func filter_tree():
+	var useful_words = compi_brain.get_useful_words(human_concepts)
+	var child = concept_tree.get_root().get_children()
+	while child != null:
+		var meta = child.get_metadata(0)
+		child.set_selectable(0, true)
+		child.deselect(0)
+		child.clear_custom_color(0)
+		if !useful_words.has(meta):
+			print("disable ", meta)
+			child.set_selectable(0, false)
+			child.set_custom_color(0, Color(0.1,0.1, 0.1))
+		child = child.get_next()
 
 
 func _on_TasksHelpButton_button_up(m: String):
@@ -210,11 +235,12 @@ func add_to_chat(main: PoolStringArray, from: String):
 	var color = "white"
 	if from == "Human":
 		color = "grey"
-	chat_text.bbcode_text += "\n\n[color=" + color + "]" + from + ": "
+	var message = from[0] + ": "
 	for c in main:
-		chat_text.bbcode_text += tr("WORD_%s" % c) + " "
-	chat_text.bbcode_text += "[/color]"
-
+		message += tr("WORD_%s" % c) + " "
+	chat_text.bbcode_text += "\n\n[color=" + color + "]" + message + "[/color]"
+	if from != "Human":
+		show_text(message.length()+2)
 
 func refresh_tasks():
 	var text = "[b]%s[/b]\n" % tr("TASKS_TITLE")
@@ -246,3 +272,25 @@ func set_tutorial(name: String):
 			tutorial_2.visible = true
 		"tutorial_3":
 			tutorial_3.visible = true
+
+func show_text(chars: int):
+	if showing_text:
+		var max_time = show_text_chars * 0.05
+		var chars_to_delete = show_text_chars - (show_text_chars * (show_text_time/max_time))
+		show_text_chars = chars + chars_to_delete
+		show_text_time = 0
+	else:
+		show_text_time = 0
+		showing_text = true
+		show_text_chars = chars
+
+func _process(delta):
+	if showing_text:
+		show_text_time += delta
+		var max_time = show_text_chars * 0.05
+		if show_text_time > max_time:
+			show_text_time = max_time
+			showing_text = false
+		var chars_to_delete = show_text_chars - (show_text_chars * (show_text_time/max_time))
+		chat_text.visible_characters = chat_text.get_total_character_count() - chars_to_delete
+		

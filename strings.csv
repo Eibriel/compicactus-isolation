@@ -46,7 +46,7 @@ WORD_me,me,yo
 WORD_you,you,tu
 WORD_compicactus,compicactus,compicactus
 WORD_player,player,jugador
-WORD_?,?,?
+WORD_question,?,?
 WORD_start,start,iniciar
 WORD_stop,stop,detener
 WORD_capsule,capsule,cápsula
@@ -75,6 +75,10 @@ WORD_purpose,purpose,propósito
 WORD_must,must,deber
 WORD_ai,ai,ia
 WORD_human,human,ser humano
+WORD_workplace,workplace,lugar de trabajo
+WORD_home,home,hogar
+WORD_children,children,hijos/as
+WORD_how many?,how many?,cuantos/as?
 WORD_0,0,0
 WORD_1,1,1
 WORD_2,2,2
