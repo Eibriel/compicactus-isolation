@@ -45,10 +45,20 @@ func add_more_words():
 			add_words(GlobalValues.tutorial_d)
 	times_added += 1
 
+var heart_emote_gift = false
 func update_score():
+	var bonus = 0
+	var compi = GlobalValues.long_term["compicactus"]
+	var player = GlobalValues.long_term["player"]
+	if player.has("favcolor") and compi.favcolor == player.favcolor:
+		bonus += 1
+	if player.has("favpet") and compi.favpet == player.favpet:
+		bonus += 1
+	if heart_emote_gift:
+		bonus += 1
 	var score = {
 		"balance": date_status.compicactus.size() - date_status.player.size(),
-		"hearts": (date_status.correct.size()*2) - date_status.incorrect.size()
+		"hearts": 5+(date_status.correct.size()*2) - date_status.incorrect.size() + bonus
 	}
 	emit_signal("score_updated", score)
 
@@ -230,6 +240,7 @@ func execute_scene(scene, target, parameters):
 			followup_needed = true
 			var emoticon = parameters.emoticon
 			if emoticon == "draw_hearth":
+				heart_emote_gift = true
 				return ["draw_hearth"]
 			return ["draw_hearth"]
 

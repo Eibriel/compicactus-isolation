@@ -7,7 +7,7 @@ var hearts = []
 var amount = 0
 
 func _ready():
-	for n in range(10):
+	for n in range(20):
 		var s = Sprite.new()
 		s.texture = heart_texture
 		# s.scale = Vector2(0.1, 0.1)
@@ -17,11 +17,11 @@ func _ready():
 		hearts.append(s)
 
 func set_hearts(new_amount: int):
+	$Label.text = "%s: %s (Max: 14)" % [tr("CORAZONES"), new_amount]
 	if new_amount == amount:
 		return
 	if new_amount < 0:
 		new_amount = 0
-	$Label.text = "Hearts: %s" % new_amount
 	
 	var diff = new_amount - amount
 

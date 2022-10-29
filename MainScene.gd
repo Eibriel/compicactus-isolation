@@ -30,6 +30,7 @@ onready var help_button: Button = $HelpButton
 onready var help_text: RichTextLabel = $Help/HelpText
 onready var ending: Control = $Ending
 onready var ending_text: RichTextLabel = $Ending/EndingText
+onready var keep_playing: Button = $Ending/KeepPlaying
 onready var language_container: VBoxContainer = $Languages
 
 onready var tutorial_1: Node2D = $Tutorial/Tutorial1
@@ -45,7 +46,7 @@ onready var sound_game_start: AudioStreamPlayer = $Sounds/GameStart
 onready var sound_disabled_word: AudioStreamPlayer = $Sounds/DisabledWord
 onready var sound_answer: AudioStreamPlayer = $Sounds/Answer
 
-var quick_start = true
+var quick_start = false
 
 var tutorial_completed: bool = false
 var tutorial_level: int = 1
@@ -105,6 +106,7 @@ func start_game():
 	send_button.connect("button_up", self, "_on_SendButton_button_up", [])
 	tasks_button.connect("button_up", self, "_on_TasksHelpButton_button_up", ["Tasks"])
 	help_button.connect("button_up", self, "_on_TasksHelpButton_button_up", ["Help"])
+	keep_playing.connect("button_up", self, "_on_KeepPlaying_button_up", [])
 	tasks.connect("gui_input", self, "_on_TasksHelp_gui_input", ["Tasks"])
 	help.connect("gui_input", self, "_on_TasksHelp_gui_input", ["Help"])
 	if not quick_start:
@@ -236,6 +238,12 @@ func _on_Ok_button_up():
 	show_game()
 
 
+var ending_reached = false
+func _on_KeepPlaying_button_up():
+	ending_reached = true
+	ending.visible = false
+
+
 func _on_TaskCompleted(task_name: String):
 	refresh_tasks()
 
@@ -257,7 +265,7 @@ func _on_SendButton_button_up():
 
 var old_score = {
 		"balance": 0,
-		"hearts": 0
+		"hearts": 5
 	}
 func _on_ScoreUpdated(score):
 	balance.update_balance(score.balance)
@@ -270,12 +278,22 @@ func _on_ScoreUpdated(score):
 			compicactus_animation.play("Exited")
 	if score.hearts < old_score.hearts:
 		compicactus_animation.play("Confused")
+	
 	if score.hearts != old_score.hearts:
-		if score.hearts >= 0:
+		if score.hearts >= 5:
 			compicactus_animation.queue("IdleHappy")
+		elif score.hearts > 3:
+			compicactus_animation.queue("IdleNeutral")
 		else:
-			pass
+			compicactus_animation.queue("IdleRejecting")
 	old_score = score
+	if !ending_reached:
+		if score.hearts >= 14:
+			ending_text.bbcode_text = tr("ENDING_GOOD")
+			ending.visible = true
+		elif score.hearts <= 2:
+			ending_text.bbcode_text = tr("ENDING_BAD")
+			ending.visible = true
 
 
 func filter_tree():

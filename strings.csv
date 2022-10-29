@@ -7,7 +7,30 @@ INTRO_TEXT,"Internet is out. Your only scape from isolation: the warm amber ligh
 The only software there: a dating sim where you learn to communicate with an AI!","Internet no funciona. Tu único escape de la soledad: la cálida luz ámbar de una PC antigua!
 
 El único programa allí: un simulador de citas donde aprendes a comunicarte con una IA!"
-HELP_TEXT,This is a chatbot game.,Esto es un chatbot
+HELP_TEXT,"[b]Goal:[/b]
+Earn as many hearts as possible.
+
+[b]How to earn harts?:[/b]
+By learning about the AI interests and becoming a good match for it.
+
+[b]How to talk with the AI?[/b]
+The AI talks in its own languaje.
+
+- Always add the subject, for example say \"me good\" instead of \"good\".
+
+Check the \"Hints\" button for more examples.","[b]Meta:[/b]
+Obtener la mayor cantidad de corazones posible.
+
+[b]¿Cómo obtener corazones?:[/b]
+Aprendiendo los intereses de la IA y volviéndote un buen match.
+
+[b]¿Cómo hablar con la IA)[/b]
+La IA habla en su propio idioma.
+
+- Siempre agrega el sujeto, por ejemplo di \"yo bueno\" en lugar de \"bueno\".
+
+Haz click en el boton \"Pistas\ para más ejemplos."
+"
 TUTORIAL_1,"Select word
 to write
 a message","Seleccione
@@ -91,13 +114,14 @@ AIRQUALITY_moderated,Moderated,Moderado
 AIRQUALITY_clean,Clean,Limpio
 DIRECTION_forward,To the future,Al futuro
 DIRECTION_backward,To the past,Al pasado
-ENDING_too_far,"You decide humanity is beyond salvation. Why bother?
+ENDING_GOOD,"Good ending!
 
-The capsule move forward in time until is out of fuel. Compicactus shut down forever.
+14 hearts reached, congrats!","Final bueno!
 
-Outside a new world, thousands of years into the future, awaits.","Decides que la humanidad ya no tiene salvación. ¿Para qué preocuparse?
+14 corazones alcanzados, felicidades!"
+ENDING_BAD,"Bad ending!
 
-La cápsula viaja hacia adelante en el tiempo hasta quedar sin energía. Compicactus se apaga para siempre.
+Ne chemistry here :(","Final malo!
 
-Afuera un nuevo mundo, miles de años en el futuro, espera."
-ENDING_good_old_times,"",""
+No hubo química :("
+CORAZONES,Hearts,Corazones
