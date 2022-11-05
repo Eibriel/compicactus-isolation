@@ -54,7 +54,8 @@ config/name="AIandGames21"
 run/main_scene="res://MainScene.tscn"
 boot_splash/show_image=false
 boot_splash/image="res://images/black.png"
-config/icon="res://images/icon.png"
+config/icon="res://icon.png"
+config/macos_native_icon="res://icon_mac.jpg"
 
 [autoload]
 
