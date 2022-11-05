@@ -119,8 +119,7 @@ func start_game():
 		logostart.visible = false
 		compicactus.modulate = Color(1, 1, 1, 1)
 		show_game()
-	compicactus_animation.play("Exited")
-	compicactus_animation.queue("IdleHappy")
+	compicactus_animation.play("IdleHappy")
 	set_language()
 	refresh_tasks()
 	
@@ -168,6 +167,8 @@ func show_game():
 		robot_concepts = compi_brain.parse(pr)
 		robot_answer()
 	set_tutorial("tutorial_1")
+	compicactus_animation.play("Exited")
+	compicactus_animation.queue("IdleHappy")
 	filter_tree()
 
 
