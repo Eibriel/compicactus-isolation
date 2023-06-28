@@ -70,7 +70,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/antialiased_line2d/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/antialiased_line2d/plugin.cfg", "res://addons/pbmirror/plugin.cfg" )
 
 [gui]
 
